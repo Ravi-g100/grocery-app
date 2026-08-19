@@ -1,0 +1,157 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+
+  <div class="container-fluid px-4">
+
+    <!-- ========================= -->
+    <!-- LOGO -->
+    <!-- ========================= -->
+
+    <a
+      class="navbar-brand fw-bold"
+      routerLink="/home">
+
+      🛒 Grocery Store
+
+    </a>
+
+
+    <!-- ========================= -->
+    <!-- MOBILE BUTTON -->
+    <!-- ========================= -->
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbar">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+
+    <div
+      class="collapse navbar-collapse"
+      id="navbar">
+
+
+      <!-- ========================= -->
+      <!-- SEARCH -->
+      <!-- ========================= -->
+
+      <form
+        class="d-flex mx-auto navbar-search"
+        (ngSubmit)="searchProducts()">
+
+        <input
+          class="form-control"
+          type="search"
+          name="searchText"
+          [(ngModel)]="searchText"
+          placeholder="Search Grocery">
+
+        <button
+          class="btn btn-light search-btn"
+          type="submit">
+
+          🔍 Search
+
+        </button>
+
+      </form>
+
+
+      <!-- ========================= -->
+      <!-- MENU -->
+      <!-- ========================= -->
+
+      <ul class="navbar-nav ms-auto align-items-center">
+
+
+        <!-- HOME -->
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            routerLink="/home"
+            routerLinkActive="active">
+
+            🏠 Home
+
+          </a>
+
+        </li>
+
+
+        <!-- DASHBOARD -->
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            routerLink="/dashboard"
+            routerLinkActive="active">
+
+            📊 Dashboard
+
+          </a>
+
+        </li>
+
+
+        <!-- ABOUT US -->
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            routerLink="/about-us"
+            routerLinkActive="active">
+
+            ℹ️ About Us
+
+          </a>
+
+        </li>
+
+
+        <!-- PROFILE -->
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            routerLink="/profile"
+            routerLinkActive="active">
+
+            👤 Profile
+
+          </a>
+
+        </li>
+
+
+        <!-- LOGOUT -->
+
+        <li class="nav-item ms-lg-2">
+
+          <button
+            type="button"
+            class="btn btn-light btn-sm px-3"
+            (click)="logout()">
+
+            🚪 Logout
+
+          </button>
+
+        </li>
+
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>

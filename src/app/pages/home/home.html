@@ -1,0 +1,119 @@
+<div class="container mt-4">
+
+  <!-- ==========================================
+       HERO BANNER
+       ========================================== -->
+
+  <div class="hero-banner">
+
+    <h1>
+      🛒 Vrindavan Online Grocery Store
+    </h1>
+
+    <p>
+      Daily Grocery Delivered At Your Doorstep
+    </p>
+
+  </div>
+
+
+  <!-- ==========================================
+       CATEGORIES
+       ========================================== -->
+
+  <h3 class="mt-5 mb-3">
+    Shop By Category
+  </h3>
+
+
+  <div class="row">
+
+    @for (
+      category of categories;
+      track category.name
+    ) {
+
+      <div class="col-lg-3 col-md-4 col-6 mb-3">
+
+        <!-- CATEGORY CLICK -->
+
+        <a
+          routerLink="/products"
+          [queryParams]="{
+            category: category.name
+          }"
+          class="text-decoration-none">
+
+          <div class="category-card">
+
+            <div class="icon">
+              {{ category.icon }}
+            </div>
+
+            <h5>
+              {{ category.name }}
+            </h5>
+
+            <p class="category-text">
+              View Products →
+            </p>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- ==========================================
+       FEATURED PRODUCTS
+       ========================================== -->
+
+  <h3 class="mt-5 mb-3">
+    Featured Products
+  </h3>
+
+
+  <div class="row">
+
+    @for (
+      product of products;
+      track product.id
+    ) {
+
+      <div
+        class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+
+        <app-product-card
+          [product]="product"
+          (add)="addToCart($event)">
+        </app-product-card>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- ==========================================
+       EMPTY PRODUCTS
+       ========================================== -->
+
+  @if (products.length === 0) {
+
+    <div class="text-center py-5">
+
+      <h5 class="text-muted">
+        No products available.
+      </h5>
+
+    </div>
+
+  }
+
+</div>

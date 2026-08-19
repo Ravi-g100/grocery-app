@@ -1,0 +1,365 @@
+<div class="container-fluid p-4">
+
+
+  <!-- HEADER -->
+
+  <div
+    class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2>
+        🧑‍💼 Store Assistant Management
+      </h2>
+
+      <p class="text-muted">
+        Approve requests and manage Store Assistant permissions.
+      </p>
+
+    </div>
+
+
+    <a
+      routerLink="/admin-dashboard"
+      class="btn btn-dark">
+
+      ← Admin Dashboard
+
+    </a>
+
+  </div>
+
+
+  <!-- REQUESTS -->
+
+  <div class="card shadow-sm border-0">
+
+    <div class="card-header bg-dark text-white">
+
+      <h5 class="mb-0">
+        Store Assistant Requests
+      </h5>
+
+    </div>
+
+
+    <div class="card-body">
+
+
+      @if (loading) {
+
+        <div class="text-center p-4">
+
+          <div
+            class="spinner-border text-primary">
+          </div>
+
+          <p class="mt-2">
+            Loading requests...
+          </p>
+
+        </div>
+
+      }
+
+
+      @else if (requests.length === 0) {
+
+        <div class="text-center p-5">
+
+          <div class="fs-1">
+            🧑‍💼
+          </div>
+
+          <h5>
+            No Store Assistant Requests
+          </h5>
+
+          <p class="text-muted">
+            New requests will appear here.
+          </p>
+
+        </div>
+
+      }
+
+
+      @else {
+
+        <div class="table-responsive">
+
+          <table
+            class="table table-hover align-middle">
+
+            <thead class="table-light">
+
+              <tr>
+
+                <th>
+                  #
+                </th>
+
+                <th>
+                  Assistant
+                </th>
+
+                <th>
+                  Contact
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Permissions
+                </th>
+
+                <th>
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              @for (
+                request of requests;
+                track request.id
+              ) {
+
+                <tr>
+
+
+                  <td>
+                    {{ request.id }}
+                  </td>
+
+
+                  <td>
+
+                    <strong>
+                      {{ request.fullname }}
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+
+                      {{ request.email }}
+
+                    </small>
+
+                  </td>
+
+
+                  <td>
+
+                    📱 {{ request.mobile }}
+
+                  </td>
+
+
+                  <td>
+
+                    @if (
+                      request.status === 'pending'
+                    ) {
+
+                      <span
+                        class="badge bg-warning text-dark">
+
+                        Pending
+
+                      </span>
+
+                    }
+
+                    @else if (
+                      request.status === 'approved'
+                    ) {
+
+                      <span
+                        class="badge bg-success">
+
+                        Approved
+
+                      </span>
+
+                    }
+
+                    @else {
+
+                      <span
+                        class="badge bg-danger">
+
+                        Rejected
+
+                      </span>
+
+                    }
+
+                  </td>
+
+
+                  <td>
+
+                    <div class="form-check">
+
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [(checked)]="request.permissions.dashboard"
+                        [disabled]="request.status !== 'approved'">
+
+                      <label
+                        class="form-check-label">
+
+                        Dashboard
+
+                      </label>
+
+                    </div>
+
+
+                    <div class="form-check">
+
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [(checked)]="request.permissions.orders"
+                        [disabled]="request.status !== 'approved'">
+
+                      <label
+                        class="form-check-label">
+
+                        Orders
+
+                      </label>
+
+                    </div>
+
+
+                    <div class="form-check">
+
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [(checked)]="request.permissions.products"
+                        [disabled]="request.status !== 'approved'">
+
+                      <label
+                        class="form-check-label">
+
+                        Products
+
+                      </label>
+
+                    </div>
+
+
+                    <div class="form-check">
+
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [(checked)]="request.permissions.categories"
+                        [disabled]="request.status !== 'approved'">
+
+                      <label
+                        class="form-check-label">
+
+                        Categories
+
+                      </label>
+
+                    </div>
+
+
+                    <div class="form-check">
+
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [(checked)]="request.permissions.users"
+                        [disabled]="request.status !== 'approved'">
+
+                      <label
+                        class="form-check-label">
+
+                        Users
+
+                      </label>
+
+                    </div>
+
+                  </td>
+
+
+                  <td>
+
+
+                    @if (
+                      request.status === 'pending'
+                    ) {
+
+                      <button
+                        type="button"
+                        class="btn btn-success btn-sm me-2"
+                        (click)="approve(request)">
+
+                        ✅ Approve
+
+                      </button>
+
+
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="reject(request)">
+
+                        ❌ Reject
+
+                      </button>
+
+                    }
+
+
+                    @if (
+                      request.status === 'approved'
+                    ) {
+
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        (click)="updatePermission(request)">
+
+                        💾 Save Access
+
+                      </button>
+
+                    }
+
+                  </td>
+
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

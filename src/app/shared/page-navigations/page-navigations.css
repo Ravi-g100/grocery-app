@@ -1,0 +1,84 @@
+/* ==========================================
+   PAGE NAVIGATION
+   ========================================== */
+
+.page-navigation {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+
+  padding: 5px 0;
+
+}
+
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.page-navigation .btn {
+
+  min-width: 120px;
+
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  padding: 8px 14px;
+
+}
+
+
+/* ==========================================
+   BACK BUTTON
+   ========================================== */
+
+.back-btn {
+
+  color: #495057;
+
+}
+
+
+/* ==========================================
+   DASHBOARD BUTTON
+   ========================================== */
+
+.dashboard-btn {
+
+  margin-left: auto;
+
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 576px) {
+
+  .page-navigation {
+
+    gap: 10px;
+
+  }
+
+
+  .page-navigation .btn {
+
+    min-width: auto;
+
+    font-size: 14px;
+
+    padding: 7px 10px;
+
+  }
+
+}

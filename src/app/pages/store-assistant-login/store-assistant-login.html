@@ -1,0 +1,189 @@
+<div class="container">
+
+  <div class="row justify-content-center align-items-center min-vh-100">
+
+    <div class="col-md-5">
+
+      <div class="card shadow">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="card-header bg-primary text-white text-center">
+
+          <h3 class="mb-0">
+            🧑‍💼 Store Assistant Login
+          </h3>
+
+          <small>
+            Grocery Store Staff
+          </small>
+
+        </div>
+
+
+        <!-- ================= BODY ================= -->
+
+        <div class="card-body p-4">
+
+
+          <form
+            [formGroup]="assistantLoginForm"
+            (ngSubmit)="login()">
+
+
+            <!-- USERNAME -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Username
+
+              </label>
+
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Store Assistant Username"
+                formControlName="username">
+
+
+              @if (
+                assistantLoginForm.get('username')?.touched &&
+                assistantLoginForm.get('username')?.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+
+                  Username is required
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Password
+
+              </label>
+
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter Password"
+                formControlName="password">
+
+
+              @if (
+                assistantLoginForm.get('password')?.touched &&
+                assistantLoginForm.get('password')?.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+
+                  Password is required
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (errorMessage) {
+
+              <div class="alert alert-danger">
+
+                ❌ {{ errorMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100">
+
+              🔐 Assistant Login
+
+            </button>
+
+
+          </form>
+
+
+          <!-- ================= BACK ================= -->
+
+          <div class="text-center mt-4">
+
+            <a
+              routerLink="/login"
+              class="text-decoration-none">
+
+              ← Back to User Login
+
+            </a>
+
+          </div>
+
+
+          <!-- ================= ADMIN LOGIN ================= -->
+
+          <div class="text-center mt-3">
+
+            <a
+              routerLink="/admin-login"
+              class="text-decoration-none">
+
+              👑 Admin Login
+
+            </a>
+
+          </div>
+
+
+          <!-- ================= DEMO CREDENTIALS ================= -->
+
+          <div class="alert alert-info mt-4 mb-0">
+
+            <strong>
+              🔐 Demo Store Assistant
+            </strong>
+
+            <hr>
+
+            Username:
+            <strong>storeassistant</strong>
+
+            <br>
+
+            Password:
+            <strong>assistant123</strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

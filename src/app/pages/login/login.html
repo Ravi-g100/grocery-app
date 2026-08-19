@@ -1,0 +1,780 @@
+<div class="login-page">
+
+  <div class="login-container">
+
+    <!-- ================================================= -->
+    <!-- LEFT IMAGE PANEL -->
+    <!-- ================================================= -->
+
+    <div class="login-image-panel">
+
+      <img
+        src="/grocery-banner1.png"
+        alt="Fresh Grocery Store"
+        class="login-side-image">
+
+      <div class="image-overlay">
+
+        <div class="image-logo">
+          🛒
+        </div>
+
+        <h1>
+          Grocery Store
+        </h1>
+
+        <p>
+          Fresh groceries delivered
+          to your doorstep.
+        </p>
+
+        <div class="image-features">
+
+          <div>
+            🥦 Fresh Products
+          </div>
+
+          <div>
+            🚚 Fast Delivery
+          </div>
+
+          <div>
+            💰 Best Prices
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- RIGHT LOGIN PANEL -->
+    <!-- ================================================= -->
+
+    <div class="login-form-panel">
+
+
+      <!-- ================================================= -->
+      <!-- LOGO -->
+      <!-- ================================================= -->
+
+      <div class="logo">
+        🛒
+      </div>
+
+
+      <h2>
+        Grocery Store
+      </h2>
+
+
+      <p class="subtitle">
+        Fresh groceries at your doorstep
+      </p>
+
+
+      <!-- ================================================= -->
+      <!-- LOGIN OPTIONS -->
+      <!-- ================================================= -->
+
+      @if (showLoginOptions) {
+
+        <div class="login-options-container">
+
+          <!-- USER LOGIN -->
+
+          <button
+            type="button"
+            class="login-option user-option"
+            (click)="selectUserLogin()">
+
+            <div class="option-icon">
+              👤
+            </div>
+
+            <h4>
+              User Login
+            </h4>
+
+            <p>
+              Shop fresh groceries, manage cart
+              and place orders.
+            </p>
+
+          </button>
+
+
+          <!-- ADMIN LOGIN -->
+
+          <button
+            type="button"
+            class="login-option admin-option"
+            (click)="selectAdminLogin()">
+
+            <div class="option-icon">
+              👨‍💼
+            </div>
+
+            <h4>
+              Admin Login
+            </h4>
+
+            <p>
+              Manage products, orders and
+              grocery store.
+            </p>
+
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- USER LOGIN -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'user' &&
+        !showForgotPassword
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            👤 Welcome Back
+          </h4>
+
+          <p class="form-subtitle">
+            Login to your grocery account
+          </p>
+
+
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="login()">
+
+
+            <!-- EMAIL -->
+
+            <div class="input-group-custom">
+
+              <label>
+                📧 Email Address
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your email"
+                formControlName="email">
+
+              @if (
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+              ) {
+
+                <small class="error">
+                  Please enter a valid email.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Password
+              </label>
+
+              <div class="password-box">
+
+                <input
+                  [type]="hidePassword ? 'password' : 'text'"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  formControlName="password">
+
+                <button
+                  type="button"
+                  class="eye-btn"
+                  (click)="hidePassword = !hidePassword">
+
+                  @if (hidePassword) {
+                    👁️
+                  }
+                  @else {
+                    🙈
+                  }
+
+                </button>
+
+              </div>
+
+
+              @if (
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+              ) {
+
+                <small class="error">
+                  Password must be at least 6 characters.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div class="login-options-row">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  formControlName="remember">
+
+                Remember Me
+
+              </label>
+
+
+              <button
+                type="button"
+                class="forgot-btn"
+                (click)="openForgotPassword()">
+
+                Forgot Password?
+
+              </button>
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (errorMessage) {
+
+              <div class="error-box">
+
+                {{ errorMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+              type="submit"
+              class="main-login-btn user-btn"
+              [disabled]="loading">
+
+              @if (loading) {
+
+                Logging in...
+
+              }
+              @else {
+
+                👤 Login as User
+
+              }
+
+            </button>
+
+          </form>
+
+
+          <!-- REGISTER -->
+
+          <div class="register-text">
+
+            Don't have an account?
+
+            <a routerLink="/register">
+              Create Account
+            </a>
+
+          </div>
+
+
+          <!-- BACK -->
+
+          <button
+            type="button"
+            class="back-btn"
+            (click)="backToLoginOptions()">
+
+            ← Back
+
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- USER FORGOT PASSWORD -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'user' &&
+        showForgotPassword
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            🔐 Reset Password
+          </h4>
+
+          <p class="form-subtitle">
+            Reset your grocery account password
+          </p>
+
+
+          <form
+            [formGroup]="forgotPasswordForm"
+            (ngSubmit)="forgotPassword()">
+
+
+            <!-- EMAIL -->
+
+            <div class="input-group-custom">
+
+              <label>
+                📧 Registered Email
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter registered email"
+                formControlName="email">
+
+            </div>
+
+
+            <!-- NEW PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 New Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter new password"
+                formControlName="newPassword">
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Confirm Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm new password"
+                formControlName="confirmPassword">
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (forgotPasswordError) {
+
+              <div class="error-box">
+                {{ forgotPasswordError }}
+              </div>
+
+            }
+
+
+            <!-- SUCCESS -->
+
+            @if (forgotPasswordMessage) {
+
+              <div class="success-box">
+                {{ forgotPasswordMessage }}
+              </div>
+
+            }
+
+
+            <!-- RESET -->
+
+            <button
+              type="submit"
+              class="main-login-btn user-btn">
+
+              🔐 Reset Password
+
+            </button>
+
+
+            <!-- BACK -->
+
+            <button
+              type="button"
+              class="back-btn"
+              (click)="closeForgotPassword()">
+
+              ← Back To Login
+
+            </button>
+
+          </form>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- ADMIN LOGIN -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'admin' &&
+        !showAdminForgotPassword
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            👨‍💼 Admin Login
+          </h4>
+
+          <p class="form-subtitle">
+            Manage your grocery store
+          </p>
+
+
+          <form
+            [formGroup]="adminLoginForm"
+            (ngSubmit)="adminLogin()">
+
+
+            <!-- USERNAME -->
+
+            <div class="input-group-custom">
+
+              <label>
+                👤 Admin Username
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter admin username"
+                formControlName="username">
+
+
+              @if (
+                adminLoginForm.get('username')?.touched &&
+                adminLoginForm.get('username')?.invalid
+              ) {
+
+                <small class="error">
+                  Username is required.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Admin Password
+              </label>
+
+              <div class="password-box">
+
+                <input
+                  [type]="hideAdminPassword ? 'password' : 'text'"
+                  class="form-control"
+                  placeholder="Enter admin password"
+                  formControlName="password">
+
+
+                <button
+                  type="button"
+                  class="eye-btn"
+                  (click)="hideAdminPassword = !hideAdminPassword">
+
+                  @if (hideAdminPassword) {
+                    👁️
+                  }
+                  @else {
+                    🙈
+                  }
+
+                </button>
+
+              </div>
+
+
+              @if (
+                adminLoginForm.get('password')?.touched &&
+                adminLoginForm.get('password')?.invalid
+              ) {
+
+                <small class="error">
+                  Password is required.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- FORGOT -->
+
+            <div class="admin-forgot">
+
+              <button
+                type="button"
+                class="forgot-btn"
+                (click)="openAdminForgotPassword()">
+
+                Forgot Admin Password?
+
+              </button>
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (adminErrorMessage) {
+
+              <div class="error-box">
+
+                {{ adminErrorMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- LOGIN -->
+
+            <button
+              type="submit"
+              class="main-login-btn admin-btn"
+              [disabled]="adminLoading">
+
+              @if (adminLoading) {
+
+                Logging in...
+
+              }
+              @else {
+
+                👨‍💼 Login as Admin
+
+              }
+
+            </button>
+
+          </form>
+
+
+          <!-- DEMO CREDENTIALS -->
+
+          <div class="demo-box">
+
+            <strong>
+              🔐 Demo Admin Credentials
+            </strong>
+
+            <div>
+              Username:
+              <b>admin</b>
+            </div>
+
+            <div>
+              Password:
+              <b>admin123</b>
+            </div>
+
+          </div>
+
+
+          <!-- BACK -->
+
+          <button
+            type="button"
+            class="back-btn"
+            (click)="backToLoginOptions()">
+
+            ← Back
+
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- ADMIN FORGOT PASSWORD -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'admin' &&
+        showAdminForgotPassword
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            🔐 Reset Admin Password
+          </h4>
+
+          <p class="form-subtitle">
+            Create a new admin password
+          </p>
+
+
+          <form
+            [formGroup]="adminForgotPasswordForm"
+            (ngSubmit)="adminForgotPassword()">
+
+
+            <!-- USERNAME -->
+
+            <div class="input-group-custom">
+
+              <label>
+                👤 Admin Username
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter admin username"
+                formControlName="username">
+
+            </div>
+
+
+            <!-- NEW PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 New Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter new password"
+                formControlName="newPassword">
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Confirm Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm new password"
+                formControlName="confirmPassword">
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (adminForgotPasswordError) {
+
+              <div class="error-box">
+
+                {{ adminForgotPasswordError }}
+
+              </div>
+
+            }
+
+
+            <!-- SUCCESS -->
+
+            @if (adminForgotPasswordMessage) {
+
+              <div class="success-box">
+
+                {{ adminForgotPasswordMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- RESET -->
+
+            <button
+              type="submit"
+              class="main-login-btn admin-btn">
+
+              🔐 Reset Admin Password
+
+            </button>
+
+
+            <!-- BACK -->
+
+            <button
+              type="button"
+              class="back-btn"
+              (click)="closeAdminForgotPassword()">
+
+              ← Back To Admin Login
+
+            </button>
+
+          </form>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

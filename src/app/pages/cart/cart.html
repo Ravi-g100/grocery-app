@@ -1,0 +1,143 @@
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+
+        🛒 Shopping Cart
+
+    </h2>
+
+    @if(cartItems.length==0){
+
+    <div class="alert alert-warning">
+
+        Your Cart is Empty
+
+    </div>
+
+    }
+
+    @else{
+
+    <table class="table table-bordered align-middle">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Product</th>
+
+                <th>Price</th>
+
+                <th>Quantity</th>
+
+                <th>Total</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @for(item of cartItems; track item.product.id){
+
+            <tr>
+
+                <td>
+
+                    <img
+                        [src]="item.product.image"
+                        width="80">
+
+                </td>
+
+                <td>
+
+                    {{item.product.name}}
+
+                </td>
+
+                <td>
+
+                    ₹{{item.product.price}}
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-danger btn-sm"
+                        (click)="decrease(item)">
+
+                        -
+
+                    </button>
+
+                    <span class="mx-3">
+
+                        {{item.quantity}}
+
+                    </span>
+
+                    <button
+                        class="btn btn-success btn-sm"
+                        (click)="increase(item)">
+
+                        +
+
+                    </button>
+
+                </td>
+
+                <td>
+
+                    ₹{{item.product.price*item.quantity}}
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-outline-danger"
+                        (click)="remove(item)">
+
+                        Remove
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+    <div class="text-end">
+
+        <h3>
+
+            Grand Total :
+
+            ₹{{getTotal()}}
+
+        </h3>
+
+        <button
+class="btn btn-success btn-lg"
+routerLink="/checkout">
+
+Proceed To Checkout
+
+</button>
+
+    </div>
+
+    }
+
+</div>

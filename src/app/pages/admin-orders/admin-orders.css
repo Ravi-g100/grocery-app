@@ -1,0 +1,442 @@
+/* ==========================================
+   MAIN
+   ========================================== */
+
+.container-fluid {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+
+/* ==========================================
+   STATISTICS
+   ========================================== */
+
+.stat-card {
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  min-height: 120px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+  border-left: 5px solid #198754;
+
+}
+
+
+.stat-card small {
+
+  color: #6c757d;
+
+  font-weight: 600;
+
+}
+
+
+.stat-card h3 {
+
+  margin: 5px 0 0;
+
+  font-weight: 700;
+
+}
+
+
+.stat-icon {
+
+  font-size: 38px;
+
+}
+
+
+.pending-card {
+  border-left-color: #ffc107;
+}
+
+
+.delivered-card {
+  border-left-color: #198754;
+}
+
+
+.cancelled-card {
+  border-left-color: #dc3545;
+}
+
+
+
+/* ==========================================
+   ORDER CARD
+   ========================================== */
+
+.order-card {
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+}
+
+
+.card-header {
+
+  padding: 16px 20px;
+
+}
+
+
+
+/* ==========================================
+   TABLE
+   ========================================== */
+
+.table {
+
+  font-size: 14px;
+
+}
+
+
+.table th {
+
+  white-space: nowrap;
+
+  font-weight: 600;
+
+  color: #495057;
+
+  padding: 14px;
+
+}
+
+
+.table td {
+
+  padding: 14px;
+
+  white-space: nowrap;
+
+}
+
+
+.table tbody tr {
+
+  transition: 0.2s;
+
+}
+
+
+.table tbody tr:hover {
+
+  background-color: #f8fff9;
+
+}
+
+
+
+/* ==========================================
+   ORDER ID
+   ========================================== */
+
+.order-id {
+
+  font-weight: 700;
+
+  color: #198754;
+
+}
+
+
+
+/* ==========================================
+   CUSTOMER
+   ========================================== */
+
+.customer-info {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+.customer-avatar {
+
+  width: 38px;
+
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #e8f5e9;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 20px;
+
+}
+
+
+.customer-info strong {
+
+  display: block;
+
+}
+
+
+.customer-info small {
+
+  display: block;
+
+  color: #6c757d;
+
+  margin-top: 2px;
+
+}
+
+
+
+/* ==========================================
+   PRICE
+   ========================================== */
+
+.total-price {
+
+  color: #198754;
+
+  font-size: 16px;
+
+}
+
+
+
+/* ==========================================
+   PAYMENT
+   ========================================== */
+
+.payment-badge {
+
+  background: #f1f3f5;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+}
+
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.status-area {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  min-width: 135px;
+
+}
+
+
+.status-badge {
+
+  display: inline-block;
+
+  width: fit-content;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+}
+
+
+.status-pending {
+
+  background: #fff3cd;
+
+  color: #856404;
+
+}
+
+
+.status-confirmed {
+
+  background: #d1e7dd;
+
+  color: #0f5132;
+
+}
+
+
+.status-shipped {
+
+  background: #cff4fc;
+
+  color: #055160;
+
+}
+
+
+.status-delivered {
+
+  background: #d1e7dd;
+
+  color: #0f5132;
+
+}
+
+
+.status-cancelled {
+
+  background: #f8d7da;
+
+  color: #842029;
+
+}
+
+
+.status-select {
+
+  min-width: 135px;
+
+  font-size: 12px;
+
+}
+
+
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.btn {
+
+  font-weight: 500;
+
+}
+
+
+.btn-sm {
+
+  font-size: 12px;
+
+}
+
+
+
+/* ==========================================
+   EMPTY ORDERS
+   ========================================== */
+
+.empty-orders {
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  padding: 60px 20px;
+
+  text-align: center;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+}
+
+
+.empty-icon {
+
+  font-size: 60px;
+
+  margin-bottom: 15px;
+
+}
+
+
+.empty-orders h4 {
+
+  font-weight: 700;
+
+}
+
+
+.empty-orders p {
+
+  color: #6c757d;
+
+}
+
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+  .container-fluid {
+
+    padding: 15px !important;
+
+  }
+
+
+  h2 {
+
+    font-size: 22px;
+
+  }
+
+
+  .stat-card {
+
+    min-height: 100px;
+
+    padding: 16px;
+
+  }
+
+
+  .stat-icon {
+
+    font-size: 30px;
+
+  }
+
+
+  .table {
+
+    font-size: 13px;
+
+  }
+
+}

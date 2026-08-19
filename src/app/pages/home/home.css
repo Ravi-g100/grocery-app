@@ -1,0 +1,385 @@
+/* ==========================================
+   HOME PAGE
+   ========================================== */
+
+.container {
+  padding-bottom: 40px;
+}
+
+
+/* ==========================================
+   HERO BANNER
+   ========================================== */
+
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 45px 25px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #198754,
+      #28a745
+    );
+
+  color: white;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Decorative circles */
+
+.hero-banner::before {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  top: -70px;
+  left: -50px;
+}
+
+
+.hero-banner::after {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  bottom: -120px;
+  right: -60px;
+}
+
+
+/* Hero heading */
+
+.hero-banner h1 {
+  position: relative;
+  z-index: 1;
+
+  margin: 0;
+
+  font-size: 2.3rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* Hero paragraph */
+
+.hero-banner p {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 12px;
+  margin-bottom: 0;
+
+  font-size: 1.15rem;
+
+  opacity: 0.95;
+}
+
+
+/* ==========================================
+   SECTION HEADINGS
+   ========================================== */
+
+h3 {
+  color: #198754;
+
+  font-weight: 700;
+
+  position: relative;
+
+  padding-bottom: 8px;
+}
+
+
+/* Small line under heading */
+
+h3::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 3px;
+
+  background: #198754;
+
+  border-radius: 10px;
+
+  margin-top: 7px;
+}
+
+
+/* ==========================================
+   CATEGORY CARD
+   ========================================== */
+
+.category-card {
+  height: 100%;
+
+  min-height: 165px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 20px 10px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8e8e8;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.07);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  cursor: pointer;
+}
+
+
+/* Category hover */
+
+.category-card:hover {
+  transform: translateY(-7px);
+
+  border-color: #198754;
+
+  box-shadow:
+    0 12px 25px rgba(25, 135, 84, 0.18);
+}
+
+
+/* ==========================================
+   CATEGORY ICON
+   ========================================== */
+
+.category-card .icon {
+  width: 75px;
+  height: 75px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 12px;
+
+  border-radius: 50%;
+
+  background: #f0fff6;
+
+  font-size: 2.7rem;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+
+.category-card:hover .icon {
+  transform: scale(1.12);
+
+  background: #dcfce7;
+}
+
+
+/* ==========================================
+   CATEGORY NAME
+   ========================================== */
+
+.category-card h5 {
+  margin: 0;
+
+  color: #212529;
+
+  font-weight: 600;
+
+  font-size: 1.05rem;
+}
+
+
+/* ==========================================
+   VIEW PRODUCTS
+   ========================================== */
+
+.category-text {
+  margin: 7px 0 0;
+
+  color: #198754;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  transition: transform 0.2s ease;
+}
+
+
+.category-card:hover .category-text {
+  transform: translateX(3px);
+}
+
+
+/* ==========================================
+   REMOVE LINK DEFAULT STYLE
+   ========================================== */
+
+a {
+  color: inherit;
+}
+
+
+/* ==========================================
+   FEATURED PRODUCTS
+   ========================================== */
+
+.row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+
+.row > [class*="col-"] {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+
+/* ==========================================
+   EMPTY PRODUCTS
+   ========================================== */
+
+.text-center.py-5 {
+  background: #f8f9fa;
+
+  border-radius: 18px;
+
+  margin-top: 20px;
+
+  border: 1px dashed #ced4da;
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+  .hero-banner {
+    min-height: 220px;
+
+    padding: 35px 18px;
+
+    border-radius: 18px;
+  }
+
+
+  .hero-banner h1 {
+    font-size: 1.65rem;
+  }
+
+
+  .hero-banner p {
+    font-size: 1rem;
+  }
+
+
+  .category-card {
+    min-height: 145px;
+
+    padding: 15px 8px;
+  }
+
+
+  .category-card .icon {
+    width: 62px;
+    height: 62px;
+
+    font-size: 2.2rem;
+  }
+
+
+  .category-card h5 {
+    font-size: 0.95rem;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 480px) {
+
+  .hero-banner {
+    min-height: 200px;
+  }
+
+
+  .hero-banner h1 {
+    font-size: 1.4rem;
+  }
+
+
+  .hero-banner p {
+    font-size: 0.9rem;
+  }
+
+
+  .category-card {
+    min-height: 135px;
+  }
+
+
+  .category-card .icon {
+    width: 55px;
+    height: 55px;
+
+    font-size: 2rem;
+  }
+
+}

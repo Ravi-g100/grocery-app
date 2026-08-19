@@ -1,0 +1,105 @@
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>
+      ❤️ My Wishlist
+    </h2>
+
+    <a
+      routerLink="/products"
+      class="btn btn-success">
+
+      Continue Shopping
+
+    </a>
+
+  </div>
+
+
+  @if (wishlist.length === 0) {
+
+    <div class="text-center py-5">
+
+      <h3>
+        ❤️ Your Wishlist is Empty
+      </h3>
+
+      <p class="text-muted">
+        Add products to your wishlist.
+      </p>
+
+      <a
+        routerLink="/products"
+        class="btn btn-success">
+
+        Browse Products
+
+      </a>
+
+    </div>
+
+  }
+
+  @else {
+
+    <div class="row">
+
+      @for (product of wishlist; track product.id) {
+
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+          <div class="card shadow h-100">
+
+            <img
+              [src]="product.image"
+              class="card-img-top p-3"
+              style="height:200px; object-fit:contain;">
+
+            <div class="card-body d-flex flex-column">
+
+              <h5 class="card-title">
+                {{ product.name }}
+              </h5>
+
+              <p class="text-muted">
+                {{ product.category }}
+              </p>
+
+              <h4 class="text-success">
+                ₹{{ product.price }}
+              </h4>
+
+              <div class="mt-auto">
+
+                <button
+                  class="btn btn-success w-100 mb-2"
+                  (click)="addToCart(product)">
+
+                  🛒 Add To Cart
+
+                </button>
+
+                <button
+                  class="btn btn-outline-danger w-100"
+                  (click)="remove(product)">
+
+                  ❤️ Remove
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

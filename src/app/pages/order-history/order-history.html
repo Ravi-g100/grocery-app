@@ -1,0 +1,162 @@
+<div class="container py-4">
+
+  <!-- HEADER -->
+
+  <div
+    class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2 class="fw-bold">
+        📦 My Orders
+      </h2>
+
+      <p class="text-muted mb-0">
+        Orders placed from your account
+      </p>
+
+    </div>
+
+
+    <a
+      routerLink="/products"
+      class="btn btn-success">
+
+      🛍️ Continue Shopping
+
+    </a>
+
+  </div>
+
+
+  <!-- NO ORDERS -->
+
+  @if (orders.length === 0) {
+
+    <div class="empty-orders text-center">
+
+      <div class="empty-icon">
+        📦
+      </div>
+
+      <h4>
+        No Orders Found
+      </h4>
+
+      <p class="text-muted">
+        You have not placed any orders yet.
+      </p>
+
+      <a
+        routerLink="/products"
+        class="btn btn-success">
+
+        Start Shopping
+
+      </a>
+
+    </div>
+
+  }
+
+
+  <!-- ORDERS -->
+
+  @if (orders.length > 0) {
+
+    <div class="row g-4">
+
+      @for (
+        order of orders;
+        track order.id
+      ) {
+
+        <div class="col-md-6 col-lg-4">
+
+          <div class="card order-card h-100 shadow-sm">
+
+            <div class="card-body">
+
+
+              <!-- ORDER ID -->
+
+              <div
+                class="d-flex justify-content-between mb-3">
+
+                <strong>
+                  Order #{{ order.id }}
+                </strong>
+
+                <span
+                  class="badge bg-success">
+
+                  {{ order.status }}
+
+                </span>
+
+              </div>
+
+
+              <!-- DATE -->
+
+              <p class="text-muted mb-2">
+
+                📅 {{ order.date }}
+
+              </p>
+
+
+              <!-- ITEMS -->
+
+              <p class="mb-2">
+
+                🛒
+                {{ order.items.length ||0}}
+                product(s)
+
+              </p>
+
+
+              <!-- PAYMENT -->
+
+              <p class="mb-2">
+
+                💳
+                {{ order.payment }}
+
+              </p>
+
+
+              <!-- TOTAL -->
+
+              <h5 class="text-success fw-bold mt-3">
+
+                ₹{{ order.total }}
+
+              </h5>
+
+
+              <!-- VIEW -->
+
+              <button
+                type="button"
+                class="btn btn-outline-success w-100 mt-2"
+                (click)="viewOrder(order.id)">
+
+                View Order Details
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

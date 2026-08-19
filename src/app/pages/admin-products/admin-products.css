@@ -1,0 +1,335 @@
+/* =========================================
+   ADMIN PRODUCT MANAGEMENT
+   ========================================= */
+
+.container-fluid {
+  background: #f5f7f6;
+  min-height: 100vh;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.container-fluid > .d-flex {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+h2 {
+  color: #198754;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   ALL CARDS
+   ========================================= */
+
+.card {
+  border-radius: 14px;
+  border: none !important;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10) !important;
+}
+
+.card-header {
+  padding: 16px 20px;
+}
+
+.card-body {
+  padding: 22px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-label {
+  margin-bottom: 6px;
+  color: #343a40;
+}
+
+.form-control,
+.form-select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+
+/* =========================================
+   INPUT GROUP
+   ========================================= */
+
+.input-group-text {
+  background: #f8f9fa;
+  font-weight: 600;
+  border-radius: 8px 0 0 8px;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+   ========================================= */
+
+.product-image {
+  width: 70px;
+  height: 70px;
+
+  object-fit: contain;
+
+  border-radius: 10px;
+
+  border: 1px solid #dee2e6;
+
+  padding: 5px;
+
+  background: #ffffff;
+
+  transition: transform 0.2s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.08);
+}
+
+.no-image {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #f1f3f5;
+
+  border: 1px solid #dee2e6;
+
+  font-size: 30px;
+}
+
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.table {
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+.table th {
+  white-space: nowrap;
+  font-weight: 600;
+  color: #343a40;
+  padding: 14px 12px;
+}
+
+.table td {
+  padding: 13px 12px;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8fff9;
+}
+
+
+/* =========================================
+   PRODUCT NAME
+   ========================================= */
+
+.table td strong {
+  font-weight: 600;
+  color: #212529;
+}
+
+
+/* =========================================
+   CATEGORY BADGE
+   ========================================= */
+
+.badge {
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+
+/* =========================================
+   PRICE
+   ========================================= */
+
+.text-success {
+  color: #198754 !important;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  padding: 6px 10px;
+}
+
+
+/* =========================================
+   SEARCH / FILTER CARD
+   ========================================= */
+
+input[type="search"] {
+  border-radius: 8px;
+}
+
+
+/* =========================================
+   NO PRODUCTS
+   ========================================= */
+
+.text-center.py-5 {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.text-center.py-5 .fs-1 {
+  font-size: 48px !important;
+}
+
+
+/* =========================================
+   CARD HEADER BADGE
+   ========================================= */
+
+.card-header .badge {
+  font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE TABLE
+   ========================================= */
+
+.table-responsive {
+  border-radius: 0 0 12px 12px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .container-fluid {
+    padding: 15px !important;
+  }
+
+  .container-fluid > .d-flex {
+    padding: 16px;
+  }
+
+  .container-fluid > .d-flex h2 {
+    font-size: 22px;
+  }
+
+  .container-fluid > .d-flex p {
+    font-size: 14px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .card-header {
+    padding: 14px 16px;
+  }
+
+  .product-image,
+  .no-image {
+    width: 55px;
+    height: 55px;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+
+  .table th,
+  .table td {
+    padding: 9px;
+  }
+
+  .btn-sm {
+    margin-bottom: 4px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 576px) {
+
+  .container-fluid > .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 14px;
+  }
+
+  .container-fluid > .d-flex .btn {
+    width: 100%;
+  }
+
+  .product-image,
+  .no-image {
+    width: 48px;
+    height: 48px;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+
+  .card-body {
+    padding: 14px;
+  }
+
+}

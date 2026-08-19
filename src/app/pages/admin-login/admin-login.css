@@ -1,0 +1,17 @@
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 18px;
+}
+
+.form-control {
+  padding: 10px 12px;
+}
+
+button {
+  padding: 10px;
+  font-weight: 600;
+}

@@ -1,0 +1,206 @@
+
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-7">
+
+      <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <h3 class="mb-0">
+              👤 My Profile
+            </h3>
+
+            <a
+              routerLink="/dashboard"
+              class="btn btn-light btn-sm">
+
+              Dashboard
+
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+
+          @if (message) {
+
+            <div class="alert alert-success">
+
+              {{ message }}
+
+            </div>
+
+          }
+
+
+          @if (errorMessage) {
+
+            <div class="alert alert-danger">
+
+              {{ errorMessage }}
+
+            </div>
+
+          }
+
+
+          <form
+            [formGroup]="profileForm"
+            (ngSubmit)="updateProfile()">
+
+
+            <!-- Full Name -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="fullname">
+
+              @if (
+                profileForm.get('fullname')?.touched &&
+                profileForm.get('fullname')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Full name is required.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- Mobile -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Mobile
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="mobile">
+
+              @if (
+                profileForm.get('mobile')?.touched &&
+                profileForm.get('mobile')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Enter a valid 10 digit mobile number.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Email
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email">
+
+              <small class="text-muted">
+
+                Email cannot be changed.
+
+              </small>
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                New Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Leave blank to keep old password"
+                formControlName="password">
+
+              @if (
+                profileForm.get('password')?.touched &&
+                profileForm.get('password')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Password must be at least 6 characters.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="d-flex gap-2">
+
+              <button
+                type="submit"
+                class="btn btn-success">
+
+                💾 Update Profile
+
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="logout()">
+
+                🚪 Logout
+
+              </button>
+
+            </div>
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

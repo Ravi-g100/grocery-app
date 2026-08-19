@@ -1,0 +1,784 @@
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+
+.about-page {
+  min-height: 100vh;
+  background: #f8faf9;
+  color: #212529;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.about-hero {
+  min-height: 420px;
+
+  padding: 70px 8%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e8f5e9,
+      #ffffff
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 50px;
+
+  overflow: hidden;
+}
+
+
+.hero-content {
+  max-width: 700px;
+}
+
+
+.hero-badge {
+  display: inline-block;
+
+  padding: 8px 16px;
+
+  border-radius: 30px;
+
+  background: #d1e7dd;
+
+  color: #146c43;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 18px;
+}
+
+
+.hero-content h1 {
+  font-size: 52px;
+
+  line-height: 1.15;
+
+  font-weight: 800;
+
+  margin-bottom: 20px;
+
+  color: #212529;
+}
+
+
+.hero-content h1 span {
+  color: #198754;
+}
+
+
+.hero-content p {
+  max-width: 650px;
+
+  color: #6c757d;
+
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  margin-bottom: 28px;
+}
+
+
+.shop-btn {
+  display: inline-block;
+
+  padding: 13px 25px;
+
+  border-radius: 10px;
+
+  background: #198754;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+
+.shop-btn:hover {
+  background: #146c43;
+
+  color: white;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(25, 135, 84, 0.25);
+}
+
+
+.hero-icon {
+  width: 250px;
+
+  height: 250px;
+
+  border-radius: 50%;
+
+  background: #198754;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 110px;
+
+  box-shadow:
+    0 25px 50px
+    rgba(25, 135, 84, 0.25);
+}
+
+
+/* =========================================================
+   COMMON SECTION
+   ========================================================= */
+
+.about-section,
+.categories-section,
+.why-section {
+  padding: 70px 8%;
+}
+
+
+.section-heading {
+  text-align: center;
+
+  max-width: 750px;
+
+  margin: 0 auto 45px;
+}
+
+
+.section-heading span {
+  color: #198754;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+
+.section-heading h2 {
+  font-size: 32px;
+
+  font-weight: 800;
+
+  margin: 10px 0;
+}
+
+
+.section-heading p {
+  color: #6c757d;
+
+  margin: 0;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   ABOUT CONTENT
+   ========================================================= */
+
+.about-content {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+
+  max-width: 1150px;
+
+  margin: auto;
+}
+
+
+.about-card {
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 35px;
+
+  box-shadow:
+    0 10px 35px
+    rgba(0, 0, 0, 0.07);
+
+  border: 1px solid #e9ecef;
+}
+
+
+.about-card-icon {
+  width: 65px;
+
+  height: 65px;
+
+  border-radius: 15px;
+
+  background: #d1e7dd;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 32px;
+
+  margin-bottom: 20px;
+}
+
+
+.about-card h3 {
+  font-weight: 700;
+
+  margin-bottom: 15px;
+}
+
+
+.about-card p {
+  color: #6c757d;
+
+  line-height: 1.8;
+
+  margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.about-features {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+}
+
+
+.feature-card {
+  background: white;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  display: flex;
+
+  gap: 15px;
+
+  transition: 0.3s;
+}
+
+
+.feature-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.feature-icon {
+  min-width: 48px;
+
+  height: 48px;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+
+.feature-icon.green {
+  background: #d1e7dd;
+}
+
+
+.feature-icon.blue {
+  background: #cfe2ff;
+}
+
+
+.feature-icon.yellow {
+  background: #fff3cd;
+}
+
+
+.feature-icon.red {
+  background: #f8d7da;
+}
+
+
+.feature-card h4 {
+  font-size: 17px;
+
+  font-weight: 700;
+
+  margin-bottom: 6px;
+}
+
+
+.feature-card p {
+  color: #6c757d;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  margin: 0;
+}
+
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+.categories-section {
+  background: white;
+}
+
+
+.category-grid {
+  max-width: 1150px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 22px;
+}
+
+
+.category-card {
+  background: #f8faf9;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+
+.category-card:hover {
+  transform: translateY(-6px);
+
+  border-color: #198754;
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.category-icon {
+  font-size: 42px;
+
+  margin-bottom: 12px;
+}
+
+
+.category-card h4 {
+  font-weight: 700;
+
+  margin-bottom: 8px;
+}
+
+
+.category-card p {
+  color: #6c757d;
+
+  font-size: 14px;
+
+  margin: 0;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   MISSION
+   ========================================================= */
+
+.mission-section {
+  padding: 60px 8%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #198754,
+      #146c43
+    );
+}
+
+
+.mission-card {
+  max-width: 1050px;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+
+  color: white;
+}
+
+
+.mission-icon {
+  min-width: 85px;
+
+  height: 85px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255, 255, 255, 0.15);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 42px;
+}
+
+
+.mission-card span {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+
+.mission-card h2 {
+  font-size: 30px;
+
+  font-weight: 800;
+
+  margin: 8px 0 12px;
+}
+
+
+.mission-card p {
+  max-width: 850px;
+
+  margin: 0;
+
+  line-height: 1.8;
+
+  color: rgba(255,255,255,0.9);
+}
+
+
+/* =========================================================
+   WHY CHOOSE US
+   ========================================================= */
+
+.why-grid {
+  max-width: 1150px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+
+.why-card {
+  background: white;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 18px;
+
+  padding: 28px 20px;
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+
+.why-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.why-card > div {
+  font-size: 38px;
+
+  margin-bottom: 12px;
+}
+
+
+.why-card h4 {
+  font-weight: 700;
+
+  margin-bottom: 8px;
+}
+
+
+.why-card p {
+  color: #6c757d;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  margin: 0;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.about-cta {
+  padding: 70px 20px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1f8e9,
+      #e8f5e9
+    );
+}
+
+
+.about-cta > div {
+  max-width: 750px;
+
+  margin: auto;
+}
+
+
+.about-cta span {
+  color: #198754;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+
+.about-cta h2 {
+  font-size: 34px;
+
+  font-weight: 800;
+
+  margin: 12px 0;
+}
+
+
+.about-cta p {
+  color: #6c757d;
+
+  line-height: 1.7;
+
+  margin-bottom: 25px;
+}
+
+
+.cta-btn {
+  display: inline-block;
+
+  padding: 13px 28px;
+
+  border-radius: 10px;
+
+  background: #198754;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+
+.cta-btn:hover {
+  background: #146c43;
+
+  color: white;
+
+  transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .hero-content h1 {
+    font-size: 42px;
+  }
+
+  .hero-icon {
+    width: 190px;
+    height: 190px;
+    font-size: 80px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .category-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .why-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .about-hero {
+    padding: 50px 25px;
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+
+  .hero-icon {
+    width: 150px;
+
+    height: 150px;
+
+    font-size: 65px;
+  }
+
+
+  .about-section,
+  .categories-section,
+  .why-section {
+    padding: 50px 20px;
+  }
+
+
+  .section-heading h2 {
+    font-size: 27px;
+  }
+
+
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .mission-card {
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+
+  .mission-card h2 {
+    font-size: 26px;
+  }
+
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .about-cta {
+    padding: 55px 20px;
+  }
+
+
+  .about-cta h2 {
+    font-size: 28px;
+  }
+
+}

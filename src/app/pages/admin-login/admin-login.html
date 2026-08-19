@@ -1,0 +1,193 @@
+<div class="container">
+
+  <div class="row justify-content-center align-items-center min-vh-100">
+
+    <div class="col-md-5">
+
+      <div class="card shadow">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="card-header bg-dark text-white text-center">
+
+          <h3 class="mb-0">
+            👨‍💼 Admin Login
+          </h3>
+
+          <small>
+            Grocery Store Admin Panel
+          </small>
+
+        </div>
+
+
+        <!-- ================= BODY ================= -->
+
+        <div class="card-body p-4">
+
+
+          <form
+            [formGroup]="adminLoginForm"
+            (ngSubmit)="login()">
+
+
+            <!-- ================= USERNAME ================= -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+                Username
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Admin Username"
+                formControlName="username"
+                autocomplete="username">
+
+
+              @if (
+                adminLoginForm.get('username')?.touched &&
+                adminLoginForm.get('username')?.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Username is required
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- ================= PASSWORD ================= -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+                Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter Admin Password"
+                formControlName="password"
+                autocomplete="current-password">
+
+
+              @if (
+                adminLoginForm.get('password')?.touched &&
+                adminLoginForm.get('password')?.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Password is required
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- ================= ERROR ================= -->
+
+            @if (errorMessage) {
+
+              <div class="alert alert-danger">
+
+                ❌ {{ errorMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- ================= ADMIN LOGIN ================= -->
+
+            <button
+              type="submit"
+              class="btn btn-dark w-100">
+
+              🔐 Admin Login
+
+            </button>
+
+
+          </form>
+
+
+          <!-- ================= STORE ASSISTANT LOGIN ================= -->
+
+          <div class="text-center mt-4">
+
+            <p class="text-muted mb-2">
+              Are you a Store Assistant?
+            </p>
+
+            <a
+              routerLink="/store-assistant-login"
+              class="btn btn-outline-success w-100">
+
+              🧑‍💼 Store Assistant Login
+
+            </a>
+
+          </div>
+
+
+          <!-- ================= USER LOGIN ================= -->
+
+          <div class="text-center mt-3">
+
+            <a
+              routerLink="/login"
+              class="text-decoration-none">
+
+              ← Back to User Login
+
+            </a>
+
+          </div>
+
+
+          <!-- ================= ADMIN CREDENTIALS ================= -->
+
+          <div class="alert alert-info mt-4 mb-0">
+
+            <div class="text-center">
+
+              <strong>
+                🔐 Demo Admin Credentials
+              </strong>
+
+            </div>
+
+            <hr>
+
+            <div>
+
+              Username:
+              <strong>admin</strong>
+
+              <br>
+
+              Password:
+              <strong>123456</strong>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,161 @@
+/* =========================================
+   CATEGORY MANAGEMENT
+   ========================================= */
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+/* =========================================
+   CARD HEADER
+   ========================================= */
+
+.card-header {
+  padding: 15px 20px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-label {
+  margin-bottom: 6px;
+}
+
+
+.form-control {
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+
+/* =========================================
+   STATISTICS CARDS
+   ========================================= */
+
+.row > .col-md-4 .card {
+  transition: 0.2s;
+}
+
+
+.row > .col-md-4 .card:hover {
+  transform: translateY(-3px);
+}
+
+
+/* =========================================
+   CATEGORY CARDS
+   ========================================= */
+
+.card-body.text-center {
+  padding: 22px 15px;
+}
+
+
+.card-body.text-center .fs-1 {
+  font-size: 42px !important;
+}
+
+
+.card-body.text-center h5 {
+  font-weight: 600;
+}
+
+
+/* =========================================
+   CATEGORY CARD HOVER
+   ========================================= */
+
+.row .card {
+  transition: 0.2s ease;
+}
+
+
+.row .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+  font-weight: 500;
+}
+
+
+.btn {
+  border-radius: 7px;
+}
+
+
+/* =========================================
+   EMPTY STATE
+   ========================================= */
+
+.text-center.p-5 .fs-1 {
+  font-size: 50px !important;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .container-fluid {
+    padding: 15px !important;
+  }
+
+
+  h2 {
+    font-size: 22px;
+  }
+
+
+  .card-body {
+    padding: 16px;
+  }
+
+
+  .card-header {
+    padding: 13px 15px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 576px) {
+
+  .d-flex.justify-content-between {
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+
+  .d-flex.justify-content-between .btn {
+    font-size: 13px;
+  }
+
+
+  .card-body.text-center .fs-1 {
+    font-size: 35px !important;
+  }
+
+}

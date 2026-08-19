@@ -1,0 +1,650 @@
+<div class="user-layout">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="user-sidebar">
+
+    <!-- LOGO -->
+
+    <div class="sidebar-logo">
+
+      <div class="logo-icon">
+        🛒
+      </div>
+
+      <div>
+        <h4>Grocery Store</h4>
+        <small>Fresh & Easy</small>
+      </div>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <nav class="sidebar-menu">
+
+      <!-- ================= SHOP ================= -->
+
+      <p class="menu-title">
+        SHOP
+      </p>
+
+
+      <!-- DASHBOARD -->
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="menu-item">
+
+        <span>🏠</span>
+        <span>Dashboard</span>
+
+      </a>
+
+
+      <!-- PRODUCTS -->
+
+      <a
+        routerLink="/products"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>🛍️</span>
+        <span>Products</span>
+
+      </a>
+
+
+      <!-- CATEGORIES -->
+
+      <a
+        routerLink="/categories"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>📂</span>
+        <span>Categories</span>
+
+      </a>
+
+
+      <!-- CART -->
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>🛒</span>
+        <span>My Cart</span>
+
+      </a>
+
+
+      <!-- WISHLIST -->
+
+      <a
+        routerLink="/wishlist"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>❤️</span>
+        <span>Wishlist</span>
+
+      </a>
+
+
+      <!-- CHECKOUT -->
+
+      <a
+        routerLink="/checkout"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>💳</span>
+        <span>Checkout</span>
+
+      </a>
+
+
+      <!-- ================= MY ACCOUNT ================= -->
+
+      <p class="menu-title">
+        MY ACCOUNT
+      </p>
+
+
+      <!-- ORDERS -->
+
+      <a
+        routerLink="/orders"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>📦</span>
+        <span>My Orders</span>
+
+      </a>
+
+
+      <!-- PROFILE -->
+
+      <a
+        routerLink="/profile"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>👤</span>
+        <span>My Profile</span>
+
+      </a>
+
+
+      <!-- ================= STORE ================= -->
+
+      <p class="menu-title">
+        STORE
+      </p>
+
+
+      <!-- STORE HOME -->
+
+      <a
+        routerLink="/home"
+        routerLinkActive="active"
+        class="menu-item">
+
+        <span>🏪</span>
+        <span>Store Home</span>
+
+      </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+      <button
+        type="button"
+        class="logout-btn"
+        (click)="logout()">
+
+        🚪
+        <span>Logout</span>
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+
+  <main class="user-main">
+
+
+    <!-- ================= TOP HEADER ================= -->
+
+    <div class="top-header">
+
+      <div>
+
+        <h2>
+          🛒 Welcome Back, {{ userName }}!
+        </h2>
+
+        <p>
+          Fresh groceries delivered to your doorstep.
+        </p>
+
+      </div>
+
+
+      <div class="user-profile">
+
+        <div class="user-avatar">
+          👤
+        </div>
+
+        <div>
+
+          <strong>
+            {{ userName }}
+          </strong>
+
+          <small>
+            Grocery Shopper
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= WELCOME BANNER ================= -->
+
+    <div class="welcome-banner">
+
+      <div>
+
+        <span class="banner-label">
+          🥦 FRESH GROCERIES
+        </span>
+
+        <h1>
+          Everything you need,<br>
+          delivered fresh.
+        </h1>
+
+        <p>
+          Shop your daily grocery items at the best prices.
+        </p>
+
+        <a
+          routerLink="/products"
+          class="shop-btn">
+
+          🛍️ Start Shopping →
+
+        </a>
+
+      </div>
+
+
+      <div class="banner-icon">
+        🛒
+      </div>
+
+    </div>
+
+
+    <!-- ================= EXPLORE STORE ================= -->
+
+    <h5 class="section-title">
+      🛍️ Explore Store
+    </h5>
+
+
+    <div class="row g-4 mb-5">
+
+
+      <!-- PRODUCTS -->
+
+      <div class="col-lg-4 col-md-6">
+
+        <div class="shop-card">
+
+          <div class="shop-card-icon green-bg">
+            🥦
+          </div>
+
+          <h4>
+            Fresh Products
+          </h4>
+
+          <p>
+            Explore fresh groceries, daily essentials
+            and household items.
+          </p>
+
+          <a
+            routerLink="/products"
+            class="btn btn-success">
+
+            Browse Products →
+
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- CATEGORIES -->
+
+      <div class="col-lg-4 col-md-6">
+
+        <div class="shop-card">
+
+          <div class="shop-card-icon yellow-bg">
+            📂
+          </div>
+
+          <h4>
+            Categories
+          </h4>
+
+          <p>
+            Find products easily by selecting
+            your favorite category.
+          </p>
+
+          <a
+            routerLink="/categories"
+            class="btn btn-warning">
+
+            View Categories →
+
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- STORE -->
+
+      <div class="col-lg-4 col-md-6">
+
+        <div class="shop-card">
+
+          <div class="shop-card-icon blue-bg">
+            🏪
+          </div>
+
+          <h4>
+            Grocery Store
+          </h4>
+
+          <p>
+            Visit our store and start shopping
+            for your daily grocery needs.
+          </p>
+
+          <a
+            routerLink="/home"
+            class="btn btn-primary">
+
+            Open Store →
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= RECENT ORDERS ================= -->
+
+    <h5 class="section-title">
+      📦 Recent Orders
+    </h5>
+
+
+    @if (recentOrders.length > 0) {
+
+      <div class="card shadow-sm mb-4">
+
+        <div class="card-body p-0">
+
+          <div class="table-responsive">
+
+            <table
+              class="table table-hover align-middle mb-0">
+
+              <thead class="table-light">
+
+                <tr>
+
+                  <th>
+                    Order ID
+                  </th>
+
+                  <th>
+                    Date
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  <th>
+                    Action
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                @for (
+                  order of recentOrders;
+                  track order.id
+                ) {
+
+                  <tr>
+
+                    <td>
+
+                      <strong>
+                        #{{ order.id }}
+                      </strong>
+
+                    </td>
+
+
+                    <td>
+                      {{ order.date }}
+                    </td>
+
+
+                    <td>
+
+                      <strong>
+                        ₹{{ order.total }}
+                      </strong>
+
+                    </td>
+
+
+                    <td>
+
+                      <span
+                        class="badge"
+                        [ngClass]="{
+
+                          'bg-success':
+                            order.status === 'Delivered',
+
+                          'bg-danger':
+                            order.status === 'Cancelled',
+
+                          'bg-primary':
+                            order.status === 'Order Placed' ||
+                            order.status === 'Confirmed' ||
+                            order.status === 'Shipped' ||
+                            order.status === 'Out for Delivery'
+
+                        }">
+
+                        {{ order.status }}
+
+                      </span>
+
+                    </td>
+
+
+                    <td>
+
+                      <a
+                        [routerLink]="[
+                          '/order-details',
+                          order.id
+                        ]"
+                        class="btn btn-sm btn-outline-primary">
+
+                        View
+
+                      </a>
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- VIEW ALL ORDERS -->
+
+      <div class="text-end mb-5">
+
+        <a
+          routerLink="/orders"
+          class="btn btn-outline-primary">
+
+          View All Orders →
+
+        </a>
+
+      </div>
+
+    }
+
+
+    @else {
+
+      <!-- NO ORDERS -->
+
+      <div class="card shadow-sm mb-5">
+
+        <div class="card-body text-center py-5">
+
+          <div class="fs-1 mb-3">
+            📦
+          </div>
+
+          <h5>
+            No Orders Yet
+          </h5>
+
+          <p class="text-muted">
+            You haven't placed any orders yet.
+          </p>
+
+          <a
+            routerLink="/products"
+            class="btn btn-success">
+
+            Start Shopping →
+
+          </a>
+
+        </div>
+
+      </div>
+
+    }
+
+
+    <!-- ================= ACCOUNT ================= -->
+
+    <h5 class="section-title">
+      👤 My Account
+    </h5>
+
+
+    <div class="row g-4 mb-4">
+
+
+      <!-- PROFILE -->
+
+      <div class="col-lg-6">
+
+        <div class="account-card">
+
+          <div class="account-icon">
+            👤
+          </div>
+
+          <div>
+
+            <h5>
+              My Profile
+            </h5>
+
+            <p>
+              View and update your personal information.
+            </p>
+
+            <a
+              routerLink="/profile"
+              class="btn btn-outline-success">
+
+              Manage Profile
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ORDERS -->
+
+      <div class="col-lg-6">
+
+        <div class="account-card">
+
+          <div class="account-icon">
+            📦
+          </div>
+
+          <div>
+
+            <h5>
+              My Orders
+            </h5>
+
+            <p>
+              Check your previous orders and track
+              your current purchases.
+            </p>
+
+            <a
+              routerLink="/orders"
+              class="btn btn-outline-primary">
+
+              View Orders
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+</div>

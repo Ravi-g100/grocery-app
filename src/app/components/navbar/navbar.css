@@ -1,0 +1,333 @@
+/* ==========================================
+   NAVBAR
+   ========================================== */
+
+.navbar {
+  min-height: 64px;
+  padding: 8px 0;
+}
+
+
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
+
+.navbar > .container-fluid {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+
+/* ==========================================
+   LOGO
+   ========================================== */
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  opacity: 1 !important;
+  white-space: nowrap;
+  margin-right: 20px;
+}
+
+.navbar-brand:hover {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+
+/* ==========================================
+   NAVBAR COLLAPSE
+   ========================================== */
+
+.navbar .navbar-collapse {
+  display: flex;
+  align-items: center;
+}
+
+
+/* ==========================================
+   SEARCH
+   ========================================== */
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+
+  width: 470px;
+  max-width: 470px;
+
+  margin-left: auto;
+  margin-right: 45px;
+
+  gap: 8px;
+}
+
+
+/* ==========================================
+   SEARCH INPUT
+   ========================================== */
+
+.navbar-search .form-control {
+  height: 40px;
+
+  width: 100%;
+  min-width: 250px;
+
+  font-size: 14px;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ffffff;
+
+  background: #ffffff;
+
+  color: #212529;
+
+  box-shadow: none;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.navbar-search .form-control::placeholder {
+  color: #6c757d;
+}
+
+.navbar-search .form-control:focus {
+  border-color: #ffffff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255, 255, 255, 0.25);
+}
+
+
+/* ==========================================
+   SEARCH BUTTON
+   ========================================== */
+
+.navbar-search .search-btn {
+  height: 40px;
+
+  /* Button ki length badhai */
+  min-width: 125px;
+
+  padding: 8px 22px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ffffff;
+
+  background: #ffffff !important;
+
+  color: #198754 !important;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  box-shadow: none;
+
+  transition: all 0.2s ease;
+}
+
+.navbar-search .search-btn:hover {
+  background: #157347 !important;
+
+  color: #ffffff !important;
+
+  border-color: #ffffff !important;
+
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   NAV LINKS
+   ========================================== */
+
+.navbar .navbar-nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-left: 0 !important;
+}
+
+.navbar .nav-link {
+  color: #ffffff !important;
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  opacity: 1 !important;
+
+  padding: 8px 11px !important;
+
+  white-space: nowrap;
+
+  line-height: 1.5;
+
+  border-radius: 6px;
+
+  transition: all 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff !important;
+
+  opacity: 1 !important;
+
+  background-color:
+    rgba(255, 255, 255, 0.12);
+}
+
+.navbar .nav-link:focus {
+  color: #ffffff !important;
+
+  opacity: 1 !important;
+}
+
+.navbar .nav-link.active {
+  color: #ffffff !important;
+
+  opacity: 1 !important;
+
+  background-color:
+    rgba(255, 255, 255, 0.18);
+
+  border-radius: 6px;
+}
+
+
+/* ==========================================
+   BADGE
+   ========================================== */
+
+.navbar .badge {
+  font-size: 11px;
+
+  padding: 4px 6px;
+
+  vertical-align: top;
+
+  margin-left: 3px;
+}
+
+
+/* ==========================================
+   MOBILE BUTTON
+   ========================================== */
+
+.navbar-toggler {
+  border-color:
+    rgba(255, 255, 255, 0.7);
+
+  padding: 5px 8px;
+}
+
+.navbar-toggler:focus {
+  box-shadow:
+    0 0 0 2px
+    rgba(255, 255, 255, 0.25);
+}
+
+
+/* ==========================================
+   TABLET / MOBILE
+   ========================================== */
+
+@media (max-width: 991px) {
+
+  .navbar .navbar-collapse {
+    display: block;
+  }
+
+  .navbar .navbar-nav {
+    margin-top: 10px !important;
+
+    gap: 2px;
+
+    align-items: stretch;
+  }
+
+  .navbar .nav-link {
+    padding: 8px 10px !important;
+  }
+
+  .navbar-search {
+    width: 100%;
+
+    max-width: none;
+
+    margin: 10px 0 12px 0;
+
+    gap: 8px;
+  }
+
+  .navbar-search .form-control {
+    min-width: 0;
+
+    flex: 1;
+  }
+
+  .navbar-search .search-btn {
+    min-width: 110px;
+
+    flex-shrink: 0;
+  }
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 576px) {
+
+  .navbar > .container-fluid {
+    padding-left: 15px !important;
+
+    padding-right: 15px !important;
+  }
+
+  .navbar-brand {
+    font-size: 16px;
+
+    margin-right: 10px;
+  }
+
+  .navbar-search {
+    gap: 6px;
+  }
+
+  .navbar-search .form-control {
+    height: 38px;
+
+    font-size: 13px;
+
+    padding: 7px 10px;
+  }
+
+  .navbar-search .search-btn {
+    height: 38px;
+
+    min-width: 100px;
+
+    padding: 6px 12px;
+
+    font-size: 13px;
+  }
+
+}

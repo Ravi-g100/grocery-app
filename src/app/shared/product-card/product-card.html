@@ -1,0 +1,49 @@
+<div class="card product-card">
+
+  <!-- Product Image -->
+  <div class="product-image-wrapper">
+
+    <img
+      [src]="product.image"
+      [alt]="product.name"
+      class="product-image"
+    >
+
+  </div>
+
+
+  <!-- Product Details -->
+  <div class="card-body">
+
+    <!-- Product Name -->
+    <h5 class="product-name">
+      {{ product.name }}
+    </h5>
+
+
+    <!-- Category -->
+    <p class="product-category">
+      {{ product.category }}
+    </p>
+
+
+    <!-- Price -->
+    <h4 class="text-success product-price">
+      ₹{{ product.price }}
+    </h4>
+
+
+    <!-- Add To Cart -->
+    <button
+      type="button"
+      class="btn btn-success w-100 add-cart-btn"
+      (click)="addToCart()"
+    >
+
+      🛒 Add To Cart
+
+    </button>
+
+  </div>
+
+</div>
