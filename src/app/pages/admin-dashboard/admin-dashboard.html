@@ -1,6 +1,8 @@
 <div class="admin-layout">
 
-  <!-- ================= SIDEBAR ================= -->
+  <!-- ================================================== -->
+  <!-- SIDEBAR -->
+  <!-- ================================================== -->
 
   <aside class="sidebar">
 
@@ -12,14 +14,24 @@
       </div>
 
       <div>
-        <h4>Grocery Store</h4>
-        <small>Admin Panel</small>
+
+        <h4>
+          Grocery Store
+        </h4>
+
+        <small>
+          Admin Panel
+        </small>
+
       </div>
 
     </div>
 
 
+    <!-- ================================================== -->
     <!-- MENU -->
+    <!-- ================================================== -->
+
     <nav class="sidebar-menu">
 
       <p class="menu-title">
@@ -27,85 +39,156 @@
       </p>
 
 
+      <!-- ================================================== -->
       <!-- DASHBOARD -->
+      <!-- ================================================== -->
+
       <a
         routerLink="/admin-dashboard"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         class="menu-item">
 
-        <span>📊</span>
-        <span>Dashboard</span>
+        <span>
+          📊
+        </span>
+
+        <span>
+          Dashboard
+        </span>
 
       </a>
-<a
-  routerLink="/admin-staff"
-  routerLinkActive="active"
-  class="menu-item">
 
-  <span>🧑‍💼</span>
 
-  <span>Store Assistants</span>
+      <!-- ================================================== -->
+      <!-- STORE ASSISTANTS -->
+      <!-- ================================================== -->
 
-</a>
-
-      <!-- ORDERS -->
       <a
-        routerLink="/admin-orders"
+        routerLink="/admin-staff"
         routerLinkActive="active"
         class="menu-item">
 
-        <span>📦</span>
-        <span>Orders</span>
+        <span>
+          🧑‍💼
+        </span>
 
-        @if (totalOrders > 0) {
+        <span>
+          Store Assistants
+        </span>
 
-          <span class="menu-count">
-            {{ totalOrders }}
+      </a>
+
+
+      <!-- ================================================== -->
+      <!-- ORDERS -->
+      <!-- ================================================== -->
+
+      @if (isAdmin || hasOrdersAccess) {
+
+        <a
+          routerLink="/admin-orders"
+          routerLinkActive="active"
+          class="menu-item">
+
+          <span>
+            📦
           </span>
 
-        }
+          <span>
+            Orders
+          </span>
 
-      </a>
+
+          @if (totalOrders > 0) {
+
+            <span class="menu-count">
+              {{ totalOrders }}
+            </span>
+
+          }
+
+        </a>
+
+      }
 
 
+      <!-- ================================================== -->
       <!-- PRODUCTS -->
-      <a
-        routerLink="/admin-products"
-        routerLinkActive="active"
-        class="menu-item">
+      <!-- ================================================== -->
 
-        <span>🛒</span>
-        <span>Products</span>
+      @if (isAdmin || hasProductsAccess) {
 
-      </a>
+        <a
+          routerLink="/admin-products"
+          routerLinkActive="active"
+          class="menu-item">
+
+          <span>
+            🛒
+          </span>
+
+          <span>
+            Products
+          </span>
+
+        </a>
+
+      }
 
 
+      <!-- ================================================== -->
       <!-- CATEGORIES -->
-      <a
-        routerLink="/admin-categories"
-        routerLinkActive="active"
-        class="menu-item">
+      <!-- ================================================== -->
 
-        <span>📂</span>
-        <span>Categories</span>
+      @if (isAdmin || hasCategoriesAccess) {
 
-      </a>
+        <a
+          routerLink="/admin-categories"
+          routerLinkActive="active"
+          class="menu-item">
+
+          <span>
+            📂
+          </span>
+
+          <span>
+            Categories
+          </span>
+
+        </a>
+
+      }
 
 
+      <!-- ================================================== -->
       <!-- USERS -->
-      <a
-        routerLink="/admin-users"
-        routerLinkActive="active"
-        class="menu-item">
+      <!-- ================================================== -->
 
-        <span>👥</span>
-        <span>Users</span>
+      @if (isAdmin || hasUsersAccess) {
 
-      </a>
+        <a
+          routerLink="/admin-users"
+          routerLinkActive="active"
+          class="menu-item">
+
+          <span>
+            👥
+          </span>
+
+          <span>
+            Users
+          </span>
+
+        </a>
+
+      }
 
 
+      <!-- ================================================== -->
       <!-- STORE -->
+      <!-- ================================================== -->
+
       <p class="menu-title mt-4">
         STORE
       </p>
@@ -115,8 +198,13 @@
         routerLink="/products"
         class="menu-item">
 
-        <span>🛍️</span>
-        <span>Store Products</span>
+        <span>
+          🛍️
+        </span>
+
+        <span>
+          Store Products
+        </span>
 
       </a>
 
@@ -125,15 +213,22 @@
         routerLink="/home"
         class="menu-item">
 
-        <span>🏠</span>
-        <span>Store Home</span>
+        <span>
+          🏠
+        </span>
+
+        <span>
+          Store Home
+        </span>
 
       </a>
 
     </nav>
 
 
+    <!-- ================================================== -->
     <!-- SIDEBAR BOTTOM -->
+    <!-- ================================================== -->
 
     <div class="sidebar-bottom">
 
@@ -143,7 +238,10 @@
         (click)="logout()">
 
         🚪
-        <span>Logout</span>
+
+        <span>
+          Logout
+        </span>
 
       </button>
 
@@ -152,12 +250,16 @@
   </aside>
 
 
-  <!-- ================= MAIN CONTENT ================= -->
+  <!-- ================================================== -->
+  <!-- MAIN CONTENT -->
+  <!-- ================================================== -->
 
   <main class="main-content">
 
 
+    <!-- ================================================== -->
     <!-- TOP HEADER -->
+    <!-- ================================================== -->
 
     <div class="top-header">
 
@@ -199,35 +301,173 @@
     </div>
 
 
-    <!-- ================= STATISTICS ================= -->
+    <!-- ================================================== -->
+    <!-- ACCESS DENIED -->
+    <!-- ================================================== -->
 
-    <div class="row g-4 mb-4">
+    @if (!isAdmin && isStoreAssistant && !hasDashboardAccess) {
+
+      <div class="access-denied-container">
+
+        <div class="access-denied-card">
+
+          <div class="access-denied-icon">
+            🔒
+          </div>
+
+          <h2>
+            Access Denied
+          </h2>
+
+          <p>
+            Admin has not given you permission to access
+            the Dashboard.
+          </p>
+
+          <small>
+            Please contact the Administrator to get access.
+          </small>
+
+        </div>
+
+      </div>
+
+    }
 
 
-      <!-- TOTAL ORDERS -->
+    <!-- ================================================== -->
+    <!-- DASHBOARD CONTENT -->
+    <!-- ================================================== -->
 
-      <div class="col-lg-3 col-md-6">
+    @if (isAdmin || hasDashboardAccess) {
 
-        <div class="stat-card">
 
-          <div>
+      <!-- ================================================== -->
+      <!-- STATISTICS -->
+      <!-- ================================================== -->
 
-            <span class="stat-title">
-              Total Orders
-            </span>
+      <div class="row g-4 mb-4">
 
-            <h2>
-              {{ totalOrders }}
-            </h2>
 
-            <small>
-              All customer orders
-            </small>
+        <!-- TOTAL ORDERS -->
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="stat-card">
+
+            <div>
+
+              <span class="stat-title">
+                Total Orders
+              </span>
+
+              <h2>
+                {{ totalOrders }}
+              </h2>
+
+              <small>
+                All customer orders
+              </small>
+
+            </div>
+
+            <div class="stat-icon blue">
+              📦
+            </div>
 
           </div>
 
-          <div class="stat-icon blue">
-            📦
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="stat-card">
+
+            <div>
+
+              <span class="stat-title">
+                Pending Orders
+              </span>
+
+              <h2 class="text-warning">
+                {{ pendingOrders }}
+              </h2>
+
+              <small>
+                Orders to process
+              </small>
+
+            </div>
+
+            <div class="stat-icon yellow">
+              ⏳
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DELIVERED -->
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="stat-card">
+
+            <div>
+
+              <span class="stat-title">
+                Delivered
+              </span>
+
+              <h2 class="text-success">
+                {{ deliveredOrders }}
+              </h2>
+
+              <small>
+                Successfully delivered
+              </small>
+
+            </div>
+
+            <div class="stat-icon green">
+              ✅
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CANCELLED -->
+
+        <div class="col-lg-3 col-md-6">
+
+          <div class="stat-card">
+
+            <div>
+
+              <span class="stat-title">
+                Cancelled
+              </span>
+
+              <h2 class="text-danger">
+                {{ cancelledOrders }}
+              </h2>
+
+              <small>
+                Cancelled orders
+              </small>
+
+            </div>
+
+            <div class="stat-icon red">
+              ❌
+            </div>
+
           </div>
 
         </div>
@@ -235,130 +475,177 @@
       </div>
 
 
-      <!-- PENDING -->
+      <!-- ================================================== -->
+      <!-- SALES + ORDER MANAGEMENT -->
+      <!-- ================================================== -->
 
-      <div class="col-lg-3 col-md-6">
+      <div class="row g-4 mb-4">
 
-        <div class="stat-card">
 
-          <div>
+        <!-- TOTAL SALES -->
 
-            <span class="stat-title">
-              Pending Orders
-            </span>
+        <div class="col-lg-6">
 
-            <h2 class="text-warning">
-              {{ pendingOrders }}
-            </h2>
+          <div class="sales-card">
 
-            <small>
-              Orders to process
-            </small>
+            <div>
 
-          </div>
+              <span>
+                💰 Total Sales
+              </span>
 
-          <div class="stat-icon yellow">
-            ⏳
+              <h1>
+                ₹{{ totalSales }}
+              </h1>
+
+              <p>
+                Total sales excluding cancelled orders.
+              </p>
+
+            </div>
+
+            <div class="sales-icon">
+              💰
+            </div>
+
           </div>
 
         </div>
 
+
+        <!-- ORDER MANAGEMENT -->
+
+        @if (isAdmin || hasOrdersAccess) {
+
+          <div class="col-lg-6">
+
+            <div class="welcome-card">
+
+              <div>
+
+                <h4>
+                  📦 Order Management
+                </h4>
+
+                <p>
+                  View, cancel, delete and update
+                  customer orders.
+                </p>
+
+                <a
+                  routerLink="/admin-orders"
+                  class="btn btn-success">
+
+                  Manage Orders →
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
       </div>
 
 
-      <!-- DELIVERED -->
+      <!-- ================================================== -->
+      <!-- DASHBOARD INFORMATION -->
+      <!-- ================================================== -->
 
-      <div class="col-lg-3 col-md-6">
-
-        <div class="stat-card">
-
-          <div>
-
-            <span class="stat-title">
-              Delivered
-            </span>
-
-            <h2 class="text-success">
-              {{ deliveredOrders }}
-            </h2>
-
-            <small>
-              Successfully delivered
-            </small>
-
-          </div>
-
-          <div class="stat-icon green">
-            ✅
-          </div>
-
-        </div>
-
-      </div>
+      <h5 class="section-title">
+        Store Overview
+      </h5>
 
 
-      <!-- CANCELLED -->
+      <div class="row g-4 mb-4">
 
-      <div class="col-lg-3 col-md-6">
 
-        <div class="stat-card">
+        <!-- ORDERS INFO -->
 
-          <div>
+        @if (isAdmin || hasOrdersAccess) {
 
-            <span class="stat-title">
-              Cancelled
-            </span>
+          <div class="col-lg-4">
 
-            <h2 class="text-danger">
-              {{ cancelledOrders }}
-            </h2>
+            <div class="management-card">
 
-            <small>
-              Cancelled orders
-            </small>
+              <div class="management-icon">
+                📦
+              </div>
+
+              <h5>
+                Orders
+              </h5>
+
+              <p>
+                Manage customer orders and update
+                their status.
+              </p>
+
+              <strong class="text-primary">
+                {{ totalOrders }} Total Orders
+              </strong>
+
+            </div>
 
           </div>
 
-          <div class="stat-icon red">
-            ❌
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
+        }
 
 
-    <!-- ================= SALES + ORDER MANAGEMENT ================= -->
+        <!-- DELIVERY INFO -->
 
-    <div class="row g-4 mb-4">
+        <div class="col-lg-4">
 
+          <div class="management-card">
 
-      <!-- TOTAL SALES -->
+            <div class="management-icon">
+              🚚
+            </div>
 
-      <div class="col-lg-6">
-
-        <div class="sales-card">
-
-          <div>
-
-            <span>
-              💰 Total Sales
-            </span>
-
-            <h1>
-              ₹{{ totalSales }}
-            </h1>
+            <h5>
+              Delivery
+            </h5>
 
             <p>
-              Total sales excluding cancelled orders.
+              Track successfully delivered customer
+              orders.
             </p>
+
+            <strong class="text-success">
+              {{ deliveredOrders }} Delivered
+            </strong>
 
           </div>
 
-          <div class="sales-icon">
-            💰
+        </div>
+
+
+        <!-- CANCELLED INFO -->
+
+        <div class="col-lg-4">
+
+          <div class="management-card">
+
+            <div class="management-icon">
+              ❌
+            </div>
+
+            <h5>
+              Cancelled Orders
+            </h5>
+
+            <p>
+              View orders cancelled by customers
+              or admin.
+            </p>
+
+            <strong class="text-danger">
+              {{ cancelledOrders }} Cancelled
+            </strong>
+
           </div>
 
         </div>
@@ -366,27 +653,36 @@
       </div>
 
 
-      <!-- ORDER MANAGEMENT -->
+      <!-- ================================================== -->
+      <!-- QUICK ORDER BUTTON -->
+      <!-- ================================================== -->
 
-      <div class="col-lg-6">
+      @if (isAdmin || hasOrdersAccess) {
 
-        <div class="welcome-card">
+        <div class="quick-card">
 
-          <div>
+          <div
+            class="d-flex justify-content-between align-items-center">
 
-            <h4>
-              📦 Order Management
-            </h4>
+            <div>
 
-            <p>
-              View, cancel, delete and update customer orders.
-            </p>
+              <h5 class="mb-1">
+                ⚡ Quick Order Management
+              </h5>
+
+              <p class="text-muted mb-0">
+                Open the orders section to manage
+                customer orders.
+              </p>
+
+            </div>
+
 
             <a
               routerLink="/admin-orders"
-              class="btn btn-success">
+              class="quick-btn">
 
-              Manage Orders →
+              📦 View Orders →
 
             </a>
 
@@ -394,137 +690,11 @@
 
         </div>
 
-      </div>
+      }
 
-    </div>
-
-
-    <!-- ================= DASHBOARD INFORMATION ================= -->
-
-    <h5 class="section-title">
-      Store Overview
-    </h5>
-
-
-    <div class="row g-4 mb-4">
-
-
-      <!-- ORDERS INFO -->
-
-      <div class="col-lg-4">
-
-        <div class="management-card">
-
-          <div class="management-icon">
-            📦
-          </div>
-
-          <h5>
-            Orders
-          </h5>
-
-          <p>
-            Manage customer orders and update their status.
-          </p>
-
-          <strong class="text-primary">
-            {{ totalOrders }} Total Orders
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <!-- DELIVERY INFO -->
-
-      <div class="col-lg-4">
-
-        <div class="management-card">
-
-          <div class="management-icon">
-            🚚
-          </div>
-
-          <h5>
-            Delivery
-          </h5>
-
-          <p>
-            Track successfully delivered customer orders.
-          </p>
-
-          <strong class="text-success">
-            {{ deliveredOrders }} Delivered
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <!-- CANCELLED INFO -->
-
-      <div class="col-lg-4">
-
-        <div class="management-card">
-
-          <div class="management-icon">
-            ❌
-          </div>
-
-          <h5>
-            Cancelled Orders
-          </h5>
-
-          <p>
-            View orders cancelled by customers or admin.
-          </p>
-
-          <strong class="text-danger">
-            {{ cancelledOrders }} Cancelled
-          </strong>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= QUICK ORDER BUTTON ================= -->
-
-    <div class="quick-card">
-
-      <div
-        class="d-flex justify-content-between align-items-center">
-
-        <div>
-
-          <h5 class="mb-1">
-            ⚡ Quick Order Management
-          </h5>
-
-          <p class="text-muted mb-0">
-            Open the orders section to manage customer orders.
-          </p>
-
-        </div>
-
-
-        <a
-          routerLink="/admin-orders"
-          class="quick-btn">
-
-          📦 View Orders →
-
-        </a>
-
-      </div>
-
-    </div>
-
+    }
 
   </main>
 
 </div>
+

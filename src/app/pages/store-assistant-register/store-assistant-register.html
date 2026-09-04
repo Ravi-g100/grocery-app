@@ -1,0 +1,336 @@
+<div class="container">
+
+  <div
+    class="row justify-content-center align-items-center min-vh-100">
+
+    <div class="col-lg-6 col-md-8">
+
+      <div class="card shadow border-0">
+
+
+        <!-- HEADER -->
+
+        <div
+          class="card-header bg-dark text-white text-center p-4">
+
+          <h3 class="mb-1">
+
+            🧑‍💼 Store Assistant Registration
+
+          </h3>
+
+          <small>
+
+            Create your account and request admin approval
+
+          </small>
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <div class="card-body p-4">
+
+
+          <!-- SUCCESS -->
+
+          @if (successMessage) {
+
+            <div class="alert alert-success">
+
+              ✅ {{ successMessage }}
+
+              <hr>
+
+              <small>
+
+                Your account will become active after
+                Admin approval.
+
+              </small>
+
+            </div>
+
+          }
+
+
+          <!-- ERROR -->
+
+          @if (errorMessage) {
+
+            <div class="alert alert-danger">
+
+              ❌ {{ errorMessage }}
+
+            </div>
+
+          }
+
+
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register()">
+
+
+            <!-- FULL NAME -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Full Name
+
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter full name"
+                formControlName="fullname">
+
+
+              @if (
+                registerForm.get('fullname')?.touched &&
+                registerForm.get('fullname')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Full name is required.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Mobile Number
+
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter 10 digit mobile number"
+                maxlength="10"
+                formControlName="mobile">
+
+
+              @if (
+                registerForm.get('mobile')?.touched &&
+                registerForm.get('mobile')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Enter a valid 10 digit mobile number.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Email
+
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter email"
+                formControlName="email">
+
+
+              @if (
+                registerForm.get('email')?.touched &&
+                registerForm.get('email')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Enter a valid email address.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Password
+
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Create password"
+                formControlName="password">
+
+
+              @if (
+                registerForm.get('password')?.touched &&
+                registerForm.get('password')?.invalid
+              ) {
+
+                <small class="text-danger">
+
+                  Password must be at least 6 characters.
+
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="mb-3">
+
+              <label class="form-label fw-semibold">
+
+                Address
+
+              </label>
+
+              <textarea
+                class="form-control"
+                rows="2"
+                placeholder="Enter address"
+                formControlName="address">
+              </textarea>
+
+            </div>
+
+
+            <!-- CITY + PINCODE -->
+
+            <div class="row">
+
+
+              <div class="col-md-7 mb-3">
+
+                <label class="form-label fw-semibold">
+
+                  City
+
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter city"
+                  formControlName="city">
+
+              </div>
+
+
+              <div class="col-md-5 mb-3">
+
+                <label class="form-label fw-semibold">
+
+                  Pincode
+
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="6 digit pincode"
+                  maxlength="6"
+                  formControlName="pincode">
+
+              </div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+              type="submit"
+              class="btn btn-dark w-100"
+              [disabled]="loading">
+
+
+              @if (loading) {
+
+                ⏳ Sending Request...
+
+              }
+              @else {
+
+                📩 Send Approval Request
+
+              }
+
+            </button>
+
+
+          </form>
+
+
+          <!-- LOGIN -->
+
+          <div class="text-center mt-4">
+
+            Already approved?
+
+            <a
+              routerLink="/store-assistant-login"
+              class="text-decoration-none fw-semibold">
+
+              Store Assistant Login
+
+            </a>
+
+          </div>
+
+
+          <!-- ADMIN -->
+
+          <div class="text-center mt-3">
+
+            <a
+              routerLink="/admin-login"
+              class="text-decoration-none">
+
+              ← Admin Login
+
+            </a>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

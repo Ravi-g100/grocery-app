@@ -1,3 +1,47 @@
+@if (
+  isStoreAssistant &&
+  !hasOrdersAccess
+) {
+
+  <div class="container-fluid py-5">
+
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="min-height: 70vh;"
+    >
+
+      <div
+        class="card shadow border-0 text-center p-5"
+        style="max-width: 550px;"
+      >
+
+        <div
+          class="fs-1 mb-3"
+        >
+          🔒
+        </div>
+
+        <h2 class="fw-bold text-danger">
+          Access Denied
+        </h2>
+
+        <p class="text-muted fs-5">
+          Admin has not given you permission
+          to access the Orders section.
+        </p>
+
+        <small class="text-muted">
+          Please contact the Administrator
+          to get access.
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
 <div class="container-fluid py-4">
 
 

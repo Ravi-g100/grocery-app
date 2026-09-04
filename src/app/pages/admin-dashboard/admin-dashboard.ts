@@ -33,9 +33,29 @@ import { OrderService } from '../../service/order';
 export class AdminDashboardComponent {
 
 
-  // ==========================================
+  // ==================================================
+  // ACCESS CONTROL
+  // ==================================================
+
+  isAdmin = false;
+
+  isStoreAssistant = false;
+
+
+  hasDashboardAccess = false;
+
+  hasOrdersAccess = false;
+
+  hasProductsAccess = false;
+
+  hasCategoriesAccess = false;
+
+  hasUsersAccess = false;
+
+
+  // ==================================================
   // STATISTICS
-  // ==========================================
+  // ==================================================
 
   totalOrders = 0;
 
@@ -48,12 +68,16 @@ export class AdminDashboardComponent {
   totalSales = 0;
 
 
-  // ==========================================
+  // ==================================================
   // RECENT ORDERS
-  // ==========================================
+  // ==================================================
 
   recentOrders: Order[] = [];
 
+
+  // ==================================================
+  // CONSTRUCTOR
+  // ==================================================
 
   constructor(
 
@@ -63,14 +87,189 @@ export class AdminDashboardComponent {
 
   ) {
 
-    this.loadDashboard();
+    this.checkAccess();
 
   }
 
 
-  // ==========================================
+  // ==================================================
+  // CHECK ACCESS
+  // ==================================================
+
+  checkAccess(): void {
+
+
+    // ==================================================
+    // ADMIN LOGIN
+    // ==================================================
+
+    this.isAdmin =
+      localStorage.getItem(
+        'adminLoggedIn'
+      ) === 'true' &&
+
+      localStorage.getItem(
+        'adminRole'
+      ) === 'admin';
+
+
+    // ==================================================
+    // STORE ASSISTANT LOGIN
+    // ==================================================
+
+    this.isStoreAssistant =
+      localStorage.getItem(
+        'storeAssistantLoggedIn'
+      ) === 'true' &&
+
+      localStorage.getItem(
+        'storeAssistantRole'
+      ) === 'store-assistant';
+
+
+    // ==================================================
+    // ADMIN FULL ACCESS
+    // ==================================================
+
+    if (this.isAdmin) {
+
+      this.hasDashboardAccess = true;
+
+      this.hasOrdersAccess = true;
+
+      this.hasProductsAccess = true;
+
+      this.hasCategoriesAccess = true;
+
+      this.hasUsersAccess = true;
+
+
+      this.loadDashboard();
+
+      return;
+
+    }
+
+
+    // ==================================================
+    // STORE ASSISTANT
+    // ==================================================
+
+    if (this.isStoreAssistant) {
+
+
+      const permissionsString =
+        localStorage.getItem(
+          'storeAssistantPermissions'
+        );
+
+
+      // ==================================================
+      // NO PERMISSION DATA
+      // ==================================================
+
+      if (!permissionsString) {
+
+        this.hasDashboardAccess = false;
+
+        this.hasOrdersAccess = false;
+
+        this.hasProductsAccess = false;
+
+        this.hasCategoriesAccess = false;
+
+        this.hasUsersAccess = false;
+
+        return;
+
+      }
+
+
+      // ==================================================
+      // READ PERMISSIONS
+      // ==================================================
+
+      try {
+
+        const permissions =
+          JSON.parse(
+            permissionsString
+          );
+
+
+        this.hasDashboardAccess =
+          permissions.dashboard === true;
+
+
+        this.hasOrdersAccess =
+          permissions.orders === true;
+
+
+        this.hasProductsAccess =
+          permissions.products === true;
+
+
+        this.hasCategoriesAccess =
+          permissions.categories === true;
+
+
+        this.hasUsersAccess =
+          permissions.users === true;
+
+
+        // ==================================================
+        // LOAD DASHBOARD DATA ONLY IF ACCESS IS GIVEN
+        // ==================================================
+
+        if (
+          this.hasDashboardAccess
+        ) {
+
+          this.loadDashboard();
+
+        }
+
+      }
+      catch (error) {
+
+        console.error(
+          'Dashboard permission parse error:',
+          error
+        );
+
+
+        this.hasDashboardAccess = false;
+
+        this.hasOrdersAccess = false;
+
+        this.hasProductsAccess = false;
+
+        this.hasCategoriesAccess = false;
+
+        this.hasUsersAccess = false;
+
+      }
+
+
+      return;
+
+    }
+
+
+    // ==================================================
+    // NOT LOGGED IN
+    // ==================================================
+
+    this.router.navigate([
+      '/admin-login'
+    ]);
+
+  }
+
+
+  // ==================================================
   // LOAD DASHBOARD
-  // ==========================================
+  // ==================================================
 
   loadDashboard(): void {
 
@@ -80,65 +279,71 @@ export class AdminDashboardComponent {
 
         next: (orders: Order[]) => {
 
-          // ==================================
+
+          // ==================================================
           // TOTAL ORDERS
-          // ==================================
+          // ==================================================
 
           this.totalOrders =
             orders.length;
 
 
-          // ==================================
+          // ==================================================
           // PENDING ORDERS
-          // ==================================
+          // ==================================================
 
           this.pendingOrders =
             orders.filter(
 
               order =>
+
                 order.status !== 'Delivered' &&
+
                 order.status !== 'Cancelled'
 
             ).length;
 
 
-          // ==================================
+          // ==================================================
           // DELIVERED ORDERS
-          // ==================================
+          // ==================================================
 
           this.deliveredOrders =
             orders.filter(
 
               order =>
+
                 order.status === 'Delivered'
 
             ).length;
 
 
-          // ==================================
+          // ==================================================
           // CANCELLED ORDERS
-          // ==================================
+          // ==================================================
 
           this.cancelledOrders =
             orders.filter(
 
               order =>
+
                 order.status === 'Cancelled'
 
             ).length;
 
 
-          // ==================================
+          // ==================================================
           // TOTAL SALES
-          // CANCELLED ORDERS EXCLUDED
-          // ==================================
+          // ==================================================
 
           this.totalSales =
+
             orders
 
               .filter(
 
                 order =>
+
                   order.status !== 'Cancelled'
 
               )
@@ -148,16 +353,18 @@ export class AdminDashboardComponent {
                 (total, order) =>
 
                   total +
-                  Number(order.total || 0),
+                  Number(
+                    order.total || 0
+                  ),
 
                 0
 
               );
 
 
-          // ==================================
+          // ==================================================
           // RECENT ORDERS
-          // ==================================
+          // ==================================================
 
           this.recentOrders =
 
@@ -166,12 +373,17 @@ export class AdminDashboardComponent {
               .sort(
 
                 (a, b) =>
+
                   Number(b.id) -
+
                   Number(a.id)
 
               )
 
-              .slice(0, 5);
+              .slice(
+                0,
+                5
+              );
 
         },
 
@@ -190,9 +402,9 @@ export class AdminDashboardComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // VIEW ORDER
-  // ==========================================
+  // ==================================================
 
   viewOrder(
     id: number
@@ -206,9 +418,9 @@ export class AdminDashboardComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // GET STATUS CLASS
-  // ==========================================
+  // ==================================================
 
   getStatusClass(
     status: string
@@ -216,7 +428,9 @@ export class AdminDashboardComponent {
 
     switch (status) {
 
+
       case 'Order Placed':
+
       case 'Pending':
 
         return 'status-pending';
@@ -256,47 +470,69 @@ export class AdminDashboardComponent {
   }
 
 
- logout(): void {
+  // ==================================================
+  // LOGOUT
+  // ==================================================
 
-  const confirmLogout =
-    confirm(
-      'Are you sure you want to logout?'
+  logout(): void {
+
+
+    const confirmLogout =
+      confirm(
+        'Are you sure you want to logout?'
+      );
+
+
+    if (!confirmLogout) {
+
+      return;
+
+    }
+
+
+    // ==================================================
+    // CLEAR ADMIN LOGIN
+    // ==================================================
+
+    localStorage.removeItem(
+      'adminLoggedIn'
+    );
+
+    localStorage.removeItem(
+      'adminRole'
     );
 
 
-  if (!confirmLogout) {
+    // ==================================================
+    // CLEAR STORE ASSISTANT LOGIN
+    // ==================================================
 
-    return;
+    localStorage.removeItem(
+      'storeAssistantLoggedIn'
+    );
+
+    localStorage.removeItem(
+      'storeAssistantRole'
+    );
+
+    localStorage.removeItem(
+      'storeAssistantPermissions'
+    );
+
+    localStorage.removeItem(
+      'storeAssistantUser'
+    );
+
+
+    // ==================================================
+    // GO TO ADMIN LOGIN
+    // ==================================================
+
+    this.router.navigate([
+      '/admin-login'
+    ]);
 
   }
 
-
-  // ADMIN LOGIN CLEAR
-
-  localStorage.removeItem(
-    'adminLoggedIn'
-  );
-
-
-  // STORE ASSISTANT LOGIN CLEAR
-
-  localStorage.removeItem(
-    'storeAssistantLoggedIn'
-  );
-
-
-  // ROLE CLEAR
-
-  localStorage.removeItem(
-    'adminRole'
-  );
-
-
-  // GO TO STAFF LOGIN
-
-  this.router.navigate([
-    '/admin-login'
-  ]);
-
 }
-}
+

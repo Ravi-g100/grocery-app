@@ -17,8 +17,7 @@ import {
 
 @Component({
 
-  selector:
-    'app-admin-staff',
+  selector: 'app-admin-staff',
 
   standalone: true,
 
@@ -27,11 +26,9 @@ import {
     RouterLink
   ],
 
-  templateUrl:
-    './admin-staff.html',
+  templateUrl: './admin-staff.html',
 
-  styleUrl:
-    './admin-staff.css'
+  styleUrl: './admin-staff.css'
 
 })
 export class AdminStaffComponent {
@@ -52,13 +49,12 @@ export class AdminStaffComponent {
 
 
   // ==================================================
-  // LOAD
+  // LOAD REQUESTS
   // ==================================================
 
   loadRequests(): void {
 
     this.loading = true;
-
 
     this.staffService
       .getRequests()
@@ -66,11 +62,9 @@ export class AdminStaffComponent {
 
         next: (requests) => {
 
-          this.requests =
-            requests;
+          this.requests = requests;
 
-          this.loading =
-            false;
+          this.loading = false;
 
         },
 
@@ -81,8 +75,7 @@ export class AdminStaffComponent {
             error
           );
 
-          this.loading =
-            false;
+          this.loading = false;
 
           alert(
             'Store Assistant requests load nahi ho rahi hain.'
@@ -104,25 +97,24 @@ export class AdminStaffComponent {
   ): void {
 
 
-    const permissions:
-      StaffPermissions = {
+    const permissions: StaffPermissions = {
 
-        dashboard:
-          request.permissions.dashboard,
+      dashboard:
+        request.permissions?.dashboard === true,
 
-        orders:
-          request.permissions.orders,
+      orders:
+        request.permissions?.orders === true,
 
-        products:
-          request.permissions.products,
+      products:
+        request.permissions?.products === true,
 
-        categories:
-          request.permissions.categories,
+      categories:
+        request.permissions?.categories === true,
 
-        users:
-          request.permissions.users
+      users:
+        request.permissions?.users === true
 
-      };
+    };
 
 
     this.staffService
@@ -145,6 +137,7 @@ export class AdminStaffComponent {
         error: (error) => {
 
           console.error(
+            'Approval error:',
             error
           );
 
@@ -170,9 +163,7 @@ export class AdminStaffComponent {
 
     const confirmed =
       confirm(
-
         `Reject Store Assistant request from ${request.fullname}?`
-
       );
 
 
@@ -202,6 +193,7 @@ export class AdminStaffComponent {
         error: (error) => {
 
           console.error(
+            'Reject error:',
             error
           );
 
@@ -225,12 +217,32 @@ export class AdminStaffComponent {
   ): void {
 
 
+    const permissions: StaffPermissions = {
+
+      dashboard:
+        request.permissions?.dashboard === true,
+
+      orders:
+        request.permissions?.orders === true,
+
+      products:
+        request.permissions?.products === true,
+
+      categories:
+        request.permissions?.categories === true,
+
+      users:
+        request.permissions?.users === true
+
+    };
+
+
     this.staffService
       .updatePermissions(
 
         request.id,
 
-        request.permissions
+        permissions
 
       )
       .subscribe({
@@ -248,6 +260,7 @@ export class AdminStaffComponent {
         error: (error) => {
 
           console.error(
+            'Permission update error:',
             error
           );
 

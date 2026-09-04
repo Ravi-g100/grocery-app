@@ -3,7 +3,9 @@ import {
   Router
 } from '@angular/router';
 
-import { inject } from '@angular/core';
+import {
+  inject
+} from '@angular/core';
 
 
 export const adminGuard: CanActivateFn = (
@@ -25,7 +27,6 @@ export const adminGuard: CanActivateFn = (
       'adminLoggedIn'
     ) === 'true';
 
-
   const adminRole =
     localStorage.getItem(
       'adminRole'
@@ -41,27 +42,10 @@ export const adminGuard: CanActivateFn = (
       'storeAssistantLoggedIn'
     ) === 'true';
 
-
   const storeAssistantRole =
     localStorage.getItem(
       'storeAssistantRole'
     );
-
-
-  // ==================================================
-  // NO LOGIN
-  // ==================================================
-
-  if (
-    !adminLoggedIn &&
-    !storeAssistantLoggedIn
-  ) {
-
-    return router.createUrlTree([
-      '/admin-login'
-    ]);
-
-  }
 
 
   // ==================================================
@@ -87,274 +71,28 @@ export const adminGuard: CanActivateFn = (
     storeAssistantRole === 'store-assistant'
   ) {
 
-
-    // ==================================================
-    // GET PERMISSIONS
-    // ==================================================
-
-    const permissionsString =
-      localStorage.getItem(
-        'storeAssistantPermissions'
-      );
-
-
-    if (!permissionsString) {
-
-      alert(
-        'No permissions assigned by Admin.'
-      );
-
-
-      return router.createUrlTree([
-        '/store-assistant-login'
-      ]);
-
-    }
-
-
-    let permissions: any;
-
-
-    try {
-
-      permissions =
-        JSON.parse(
-          permissionsString
-        );
-
-    }
-    catch (error) {
-
-      console.error(
-        'Permission parse error:',
-        error
-      );
-
-
-      localStorage.removeItem(
-        'storeAssistantPermissions'
-      );
-
-
-      return router.createUrlTree([
-        '/store-assistant-login'
-      ]);
-
-    }
-
-
-    // ==================================================
-    // CURRENT URL
-    // ==================================================
-
-    const url =
-      state.url;
-
-
-    // ==================================================
-    // DASHBOARD
-    // ==================================================
-
-    if (
-      url === '/admin-dashboard' ||
-      url.startsWith(
-        '/admin-dashboard/'
-      )
-    ) {
-
-      if (
-        permissions.dashboard === true
-      ) {
-
-        return true;
-
-      }
-
-    }
-
-
-    // ==================================================
-    // ORDERS
-    // ==================================================
-
-    if (
-      url === '/admin-orders' ||
-      url.startsWith(
-        '/admin-orders/'
-      )
-    ) {
-
-      if (
-        permissions.orders === true
-      ) {
-
-        return true;
-
-      }
-
-    }
-
-
-    // ==================================================
-    // PRODUCTS
-    // ==================================================
-
-    if (
-      url === '/admin-products' ||
-      url.startsWith(
-        '/admin-products/'
-      )
-    ) {
-
-      if (
-        permissions.products === true
-      ) {
-
-        return true;
-
-      }
-
-    }
-
-
-    // ==================================================
-    // CATEGORIES
-    // ==================================================
-
-    if (
-      url === '/admin-categories' ||
-      url.startsWith(
-        '/admin-categories/'
-      )
-    ) {
-
-      if (
-        permissions.categories === true
-      ) {
-
-        return true;
-
-      }
-
-    }
-
-
-    // ==================================================
-    // USERS
-    // ==================================================
-
-    if (
-      url === '/admin-users' ||
-      url.startsWith(
-        '/admin-users/'
-      )
-    ) {
-
-      if (
-        permissions.users === true
-      ) {
-
-        return true;
-
-      }
-
-    }
-
-
-    // ==================================================
-    // ACCESS DENIED
-    // ==================================================
-
-    alert(
-      'Access denied. Admin has not given you permission for this section.'
-    );
-
-
-    // ==================================================
-    // FIND AN ALLOWED PAGE
-    // ==================================================
-
-    if (
-      permissions.dashboard === true
-    ) {
-
-      return router.createUrlTree([
-        '/admin-dashboard'
-      ]);
-
-    }
-
-
-    if (
-      permissions.orders === true
-    ) {
-
-      return router.createUrlTree([
-        '/admin-orders'
-      ]);
-
-    }
-
-
-    if (
-      permissions.products === true
-    ) {
-
-      return router.createUrlTree([
-        '/admin-products'
-      ]);
-
-    }
-
-
-    if (
-      permissions.categories === true
-    ) {
-
-      return router.createUrlTree([
-        '/admin-categories'
-      ]);
-
-    }
-
-
-    if (
-      permissions.users === true
-    ) {
-
-      return router.createUrlTree([
-        '/admin-users'
-      ]);
-
-    }
-
-
-    // ==================================================
-    // NOTHING ALLOWED
-    // ==================================================
-
-    localStorage.removeItem(
-      'storeAssistantLoggedIn'
-    );
-
-    localStorage.removeItem(
-      'storeAssistantRole'
-    );
-
-    localStorage.removeItem(
-      'storeAssistantPermissions'
-    );
-
-
-    return router.createUrlTree([
-      '/store-assistant-login'
-    ]);
+    /*
+     * IMPORTANT
+     *
+     * Store Assistant ko route se block nahi karenge.
+     *
+     * Page khulega aur page khud check karega
+     * ki permission hai ya nahi.
+     *
+     * Isse unauthorized page par:
+     *
+     * Access Denied
+     *
+     * dikhaya ja sakta hai.
+     */
+
+    return true;
 
   }
 
 
   // ==================================================
-  // DEFAULT DENY
+  // NO ADMIN / NO STORE ASSISTANT LOGIN
   // ==================================================
 
   return router.createUrlTree([

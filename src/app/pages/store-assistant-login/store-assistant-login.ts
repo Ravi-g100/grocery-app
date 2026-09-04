@@ -14,6 +14,8 @@ import {
   RouterLink
 } from '@angular/router';
 
+import { StaffService } from '../../services/staff';
+
 
 @Component({
 
@@ -37,12 +39,16 @@ export class StoreAssistantLoginComponent {
 
   assistantLoginForm: FormGroup;
 
+  loading = false;
+
   errorMessage = '';
 
 
   constructor(
 
     private fb: FormBuilder,
+
+    private staffService: StaffService,
 
     private router: Router
 
@@ -52,14 +58,19 @@ export class StoreAssistantLoginComponent {
     this.assistantLoginForm =
       this.fb.group({
 
-        username: [
+        email: [
           '',
-          Validators.required
+          [
+            Validators.required,
+            Validators.email
+          ]
         ],
 
         password: [
           '',
-          Validators.required
+          [
+            Validators.required
+          ]
         ]
 
       });
@@ -67,12 +78,16 @@ export class StoreAssistantLoginComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // STORE ASSISTANT LOGIN
-  // ==========================================
+  // ==================================================
 
   login(): void {
 
+
+    // ==================================================
+    // VALIDATION
+    // ==================================================
 
     if (
       this.assistantLoginForm.invalid
@@ -85,9 +100,13 @@ export class StoreAssistantLoginComponent {
     }
 
 
-    const username =
+    // ==================================================
+    // GET VALUES
+    // ==================================================
+
+    const email =
       this.assistantLoginForm
-        .get('username')
+        .get('email')
         ?.value
         ?.trim()
         .toLowerCase();
@@ -99,9 +118,9 @@ export class StoreAssistantLoginComponent {
         ?.value;
 
 
-    // ==========================================
-    // CLEAR OLD ASSISTANT LOGIN
-    // ==========================================
+    // ==================================================
+    // CLEAR OLD LOGIN DATA
+    // ==================================================
 
     localStorage.removeItem(
       'storeAssistantLoggedIn'
@@ -111,56 +130,250 @@ export class StoreAssistantLoginComponent {
       'storeAssistantRole'
     );
 
+    localStorage.removeItem(
+      'storeAssistantPermissions'
+    );
 
-    // ==========================================
-    // STORE ASSISTANT CREDENTIALS
-    // ==========================================
-
-    if (
-
-      username === 'storeassistant' &&
-
-      password === 'assistant123'
-
-    ) {
+    localStorage.removeItem(
+      'storeAssistantUser'
+    );
 
 
-      localStorage.setItem(
-        'storeAssistantLoggedIn',
-        'true'
-      );
+    this.loading = true;
+
+    this.errorMessage = '';
 
 
-      localStorage.setItem(
-        'storeAssistantRole',
-        'store-assistant'
-      );
+    // ==================================================
+    // LOGIN API
+    // ==================================================
+
+    this.staffService
+      .login(
+        email,
+        password
+      )
+      .subscribe({
+
+        // ==================================================
+        // SUCCESS
+        // ==================================================
+
+        next: (response) => {
+
+          this.loading = false;
 
 
-      this.errorMessage = '';
+          console.log(
+            'Store Assistant Login Response:',
+            response
+          );
 
 
-      // ========================================
-      // ASSISTANT DASHBOARD
-      // ========================================
+          // ==================================================
+          // CHECK SERVER RESPONSE
+          // ==================================================
 
-      this.router.navigate([
-        '/admin-dashboard'
-      ]);
+          if (
+            !response ||
+            !response.assistant
+          ) {
+
+            this.errorMessage =
+              'Invalid server response.';
+
+            return;
+
+          }
 
 
-      return;
+          // ==================================================
+          // ASSISTANT DETAILS
+          // ==================================================
 
-    }
+          const assistant =
+            response.assistant;
 
 
-    // ==========================================
-    // INVALID LOGIN
-    // ==========================================
+          // ==================================================
+          // PERMISSIONS
+          // ==================================================
 
-    this.errorMessage =
-      'Invalid Store Assistant Username or Password.';
+          const permissions = {
+
+            dashboard:
+              assistant.permissions
+                ?.dashboard === true,
+
+            orders:
+              assistant.permissions
+                ?.orders === true,
+
+            products:
+              assistant.permissions
+                ?.products === true,
+
+            categories:
+              assistant.permissions
+                ?.categories === true,
+
+            users:
+              assistant.permissions
+                ?.users === true
+
+          };
+
+
+          console.log(
+            'Store Assistant Permissions:',
+            permissions
+          );
+
+
+          // ==================================================
+          // SAVE LOGIN
+          // ==================================================
+
+          localStorage.setItem(
+            'storeAssistantLoggedIn',
+            'true'
+          );
+
+
+          localStorage.setItem(
+            'storeAssistantRole',
+            'store-assistant'
+          );
+
+
+          localStorage.setItem(
+            'storeAssistantPermissions',
+            JSON.stringify(
+              permissions
+            )
+          );
+
+
+          localStorage.setItem(
+            'storeAssistantUser',
+            JSON.stringify(
+              assistant
+            )
+          );
+
+
+          // ==================================================
+          // OPEN FIRST ALLOWED PAGE
+          // ==================================================
+
+          if (
+            permissions.dashboard
+          ) {
+
+            this.router.navigate([
+              '/admin-dashboard'
+            ]);
+
+            return;
+
+          }
+
+
+          if (
+            permissions.orders
+          ) {
+
+            this.router.navigate([
+              '/admin-orders'
+            ]);
+
+            return;
+
+          }
+
+
+          if (
+            permissions.products
+          ) {
+
+            this.router.navigate([
+              '/admin-products'
+            ]);
+
+            return;
+
+          }
+
+
+          if (
+            permissions.categories
+          ) {
+
+            this.router.navigate([
+              '/admin-categories'
+            ]);
+
+            return;
+
+          }
+
+
+          if (
+            permissions.users
+          ) {
+
+            this.router.navigate([
+              '/admin-users'
+            ]);
+
+            return;
+
+          }
+
+
+          // ==================================================
+          // NO PERMISSION
+          // ==================================================
+
+          /*
+           * IMPORTANT:
+           * Login data REMOVE nahi karenge.
+           *
+           * Store Assistant logged-in rahega.
+           *
+           * Login page par redirect bhi nahi karenge.
+           */
+
+          this.errorMessage =
+            'Login successful, but Admin has not given you access to any section.';
+
+        },
+
+
+        // ==================================================
+        // LOGIN ERROR
+        // ==================================================
+
+        error: (error) => {
+
+          this.loading = false;
+
+
+          console.error(
+            'Store Assistant Login Error:',
+            error
+          );
+
+
+          this.errorMessage =
+            error?.error?.message ||
+            'Invalid email or password.';
+
+        }
+
+      });
 
   }
 
 }
+

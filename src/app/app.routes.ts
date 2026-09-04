@@ -51,6 +51,7 @@ import { AdminCategoriesComponent } from './pages/admin-categories/admin-categor
 import { AdminUsersComponent } from './pages/admin-users/admin-users';
 import { AdminStaffComponent } from './pages/admin-staff/admin-staff';
 
+
 // ==========================================
 // STORE ASSISTANT
 // ==========================================
@@ -58,6 +59,7 @@ import { AdminStaffComponent } from './pages/admin-staff/admin-staff';
 import {
   StoreAssistantLoginComponent
 } from './pages/store-assistant-login/store-assistant-login';
+import { StoreAssistantRegisterComponent } from './pages/store-assistant-register/store-assistant-register';
 
 
 // ==========================================
@@ -74,6 +76,7 @@ import { AboutUs } from './pages/about-us/about-us';
 import { authGuard } from './guards/auth-guard';
 
 import { adminGuard } from './guards/admin-guard';
+
 
 
 // ==========================================
@@ -252,6 +255,10 @@ export const routes: Routes = [
   path: 'admin-staff',
   component: AdminStaffComponent,
   canActivate: [adminGuard]
+},
+{
+  path: 'store-assistant-register',
+  component: StoreAssistantRegisterComponent
 },
 
   // ==========================================

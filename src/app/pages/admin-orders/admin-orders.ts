@@ -26,11 +26,23 @@ import { OrderService } from '../../service/order';
   styleUrl: './admin-orders.css'
 
 })
+
 export class AdminOrdersComponent {
 
   orders: any[] = [];
 
   loading = false;
+
+
+  // ==================================================
+  // LOGIN / ACCESS
+  // ==================================================
+
+  isAdmin = false;
+
+  isStoreAssistant = false;
+
+  hasOrdersAccess = false;
 
 
   constructor(
@@ -41,39 +53,135 @@ export class AdminOrdersComponent {
 
   ) {
 
-    this.loadOrders();
+    this.checkAccess();
 
   }
 
 
-  // ==========================================
-  // LOAD ORDERS FROM MYSQL
-  // ==========================================
+  // ==================================================
+  // CHECK ADMIN / STORE ASSISTANT ACCESS
+  // ==================================================
 
-  loadOrders(): void {
+  checkAccess(): void {
 
-    const adminLoggedIn =
-      sessionStorage.getItem(
+    // ------------------------------------------
+    // ADMIN
+    // ------------------------------------------
+
+    this.isAdmin =
+      localStorage.getItem(
         'adminLoggedIn'
-      );
+      ) === 'true' &&
+      localStorage.getItem(
+        'adminRole'
+      ) === 'admin';
 
 
-    if (
-      adminLoggedIn !== 'true'
-    ) {
+    // ------------------------------------------
+    // STORE ASSISTANT
+    // ------------------------------------------
 
-      alert(
-        'Admin login required.'
-      );
+    this.isStoreAssistant =
+      localStorage.getItem(
+        'storeAssistantLoggedIn'
+      ) === 'true' &&
+      localStorage.getItem(
+        'storeAssistantRole'
+      ) === 'store-assistant';
 
-      this.router.navigate([
-        '/admin-login'
-      ]);
+
+    // ------------------------------------------
+    // ADMIN = FULL ACCESS
+    // ------------------------------------------
+
+    if (this.isAdmin) {
+
+      this.hasOrdersAccess = true;
+
+      this.loadOrders();
 
       return;
 
     }
 
+
+    // ------------------------------------------
+    // STORE ASSISTANT
+    // ------------------------------------------
+
+    if (this.isStoreAssistant) {
+
+      const permissionsString =
+        localStorage.getItem(
+          'storeAssistantPermissions'
+        );
+
+
+      if (!permissionsString) {
+
+        this.hasOrdersAccess = false;
+
+        return;
+
+      }
+
+
+      try {
+
+        const permissions =
+          JSON.parse(
+            permissionsString
+          );
+
+
+        this.hasOrdersAccess =
+          permissions.orders === true;
+
+
+        // --------------------------------------
+        // ONLY LOAD ORDERS IF ACCESS GIVEN
+        // --------------------------------------
+
+        if (this.hasOrdersAccess) {
+
+          this.loadOrders();
+
+        }
+
+      }
+      catch (error) {
+
+        console.error(
+          'Permission parse error:',
+          error
+        );
+
+        this.hasOrdersAccess = false;
+
+      }
+
+
+      return;
+
+    }
+
+
+    // ------------------------------------------
+    // NO LOGIN
+    // ------------------------------------------
+
+    this.router.navigate([
+      '/admin-login'
+    ]);
+
+  }
+
+
+  // ==================================================
+  // LOAD ORDERS FROM MYSQL
+  // ==================================================
+
+  loadOrders(): void {
 
     this.loading = true;
 
@@ -112,9 +220,9 @@ export class AdminOrdersComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // TOTAL ORDERS
-  // ==========================================
+  // ==================================================
 
   get totalOrders(): number {
 
@@ -123,9 +231,9 @@ export class AdminOrdersComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // PENDING ORDERS
-  // ==========================================
+  // ==================================================
 
   get pendingOrders(): number {
 
@@ -144,9 +252,9 @@ export class AdminOrdersComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // DELIVERED ORDERS
-  // ==========================================
+  // ==================================================
 
   get deliveredOrders(): number {
 
@@ -161,9 +269,9 @@ export class AdminOrdersComponent {
   }
 
 
-  // ==========================================
+  // ==================================================
   // CANCELLED ORDERS
-  // ==========================================
+  // ==================================================
 
   get cancelledOrders(): number {
 
@@ -177,31 +285,43 @@ export class AdminOrdersComponent {
 
   }
 
-// ==========================================
-// VIEW ORDER
-// ==========================================
 
-viewOrder(id: number): void {
+  // ==================================================
+  // VIEW ORDER
+  // ==================================================
 
-  console.log('VIEW ORDER ID:', id);
+  viewOrder(
+    id: number
+  ): void {
 
-  if (!id) {
+    console.log(
+      'VIEW ORDER ID:',
+      id
+    );
 
-    alert('Invalid Order ID.');
 
-    return;
+    if (!id) {
+
+      alert(
+        'Invalid Order ID.'
+      );
+
+      return;
+
+    }
+
+
+    this.router.navigate([
+      '/order-details',
+      Number(id)
+    ]);
 
   }
 
-  this.router.navigate([
-    '/order-details',
-    Number(id)
-  ]);
 
-}
-  // ==========================================
+  // ==================================================
   // UPDATE STATUS
-  // ==========================================
+  // ==================================================
 
   updateStatus(
 
@@ -220,9 +340,9 @@ viewOrder(id: number): void {
     }
 
 
-    // ========================================
+    // ----------------------------------------
     // CANCEL ORDER
-    // ========================================
+    // ----------------------------------------
 
     if (
       status === 'Cancelled'
@@ -295,9 +415,9 @@ viewOrder(id: number): void {
     }
 
 
-    // ========================================
+    // ----------------------------------------
     // OTHER STATUS
-    // ========================================
+    // ----------------------------------------
 
     this.orderService
       .updateOrderStatus(
@@ -346,9 +466,9 @@ viewOrder(id: number): void {
   }
 
 
-  // ==========================================
+  // ==================================================
   // DELETE ORDER
-  // ==========================================
+  // ==================================================
 
   deleteOrder(
     id: number
@@ -420,9 +540,9 @@ viewOrder(id: number): void {
   }
 
 
-  // ==========================================
+  // ==================================================
   // STATUS CSS
-  // ==========================================
+  // ==================================================
 
   getStatusClass(
     status: string
