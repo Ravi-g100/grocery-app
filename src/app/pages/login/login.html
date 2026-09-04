@@ -55,20 +55,15 @@
 
     <div class="login-form-panel">
 
-
-      <!-- ================================================= -->
       <!-- LOGO -->
-      <!-- ================================================= -->
 
       <div class="logo">
         🛒
       </div>
 
-
       <h2>
         Grocery Store
       </h2>
-
 
       <p class="subtitle">
         Fresh groceries at your doorstep
@@ -105,30 +100,82 @@
 
           </button>
 
+        </div>
 
-          <!-- ADMIN LOGIN -->
+
+        <!-- OTHER LOGIN -->
+
+        <div class="other-login-container">
 
           <button
             type="button"
-            class="login-option admin-option"
-            (click)="selectAdminLogin()">
+            class="other-login-link"
+            (click)="openOtherLogin()">
 
-            <div class="option-icon">
-              👨‍💼
-            </div>
-
-            <h4>
-              Admin Login
-            </h4>
-
-            <p>
-              Manage products, orders and
-              grocery store.
-            </p>
+            🔐 Other Login
 
           </button>
 
         </div>
+
+
+        <!-- OTHER LOGIN OPTIONS -->
+
+        @if (showOtherLogin) {
+
+          <div class="other-login-menu">
+
+            <h5>
+              Other Login
+            </h5>
+
+
+            <!-- ADMIN -->
+
+            <button
+              type="button"
+              class="other-login-option"
+              (click)="selectAdminLogin()">
+
+              🔐
+
+              <span>
+                Admin Login
+              </span>
+
+            </button>
+
+
+            <!-- STORE ASSISTANT -->
+
+            <button
+              type="button"
+              class="other-login-option"
+              (click)="storeAssistantLogin()">
+
+              🧑‍💼
+
+              <span>
+                Store Assistant Login
+              </span>
+
+            </button>
+
+
+            <!-- CLOSE -->
+
+            <button
+              type="button"
+              class="other-login-close"
+              (click)="closeOtherLogin()">
+
+              × Close
+
+            </button>
+
+          </div>
+
+        }
 
       }
 
@@ -172,6 +219,7 @@
                 placeholder="Enter your email"
                 formControlName="email">
 
+
               @if (
                 loginForm.get('email')?.touched &&
                 loginForm.get('email')?.invalid
@@ -202,6 +250,7 @@
                   placeholder="Enter your password"
                   formControlName="password">
 
+
                 <button
                   type="button"
                   class="eye-btn"
@@ -210,6 +259,7 @@
                   @if (hidePassword) {
                     👁️
                   }
+
                   @else {
                     🙈
                   }
@@ -265,15 +315,13 @@
             @if (errorMessage) {
 
               <div class="error-box">
-
                 {{ errorMessage }}
-
               </div>
 
             }
 
 
-            <!-- LOGIN BUTTON -->
+            <!-- LOGIN -->
 
             <button
               type="submit"
@@ -285,6 +333,7 @@
                 Logging in...
 
               }
+
               @else {
 
                 👤 Login as User
@@ -531,6 +580,7 @@
                   @if (hideAdminPassword) {
                     👁️
                   }
+
                   @else {
                     🙈
                   }
@@ -575,9 +625,7 @@
             @if (adminErrorMessage) {
 
               <div class="error-box">
-
                 {{ adminErrorMessage }}
-
               </div>
 
             }
@@ -595,6 +643,7 @@
                 Logging in...
 
               }
+
               @else {
 
                 👨‍💼 Login as Admin
@@ -702,7 +751,7 @@
             </div>
 
 
-            <!-- CONFIRM PASSWORD -->
+            <!-- CONFIRM -->
 
             <div class="input-group-custom">
 
@@ -724,9 +773,7 @@
             @if (adminForgotPasswordError) {
 
               <div class="error-box">
-
                 {{ adminForgotPasswordError }}
-
               </div>
 
             }
@@ -737,9 +784,7 @@
             @if (adminForgotPasswordMessage) {
 
               <div class="success-box">
-
                 {{ adminForgotPasswordMessage }}
-
               </div>
 
             }
@@ -768,6 +813,159 @@
             </button>
 
           </form>
+
+        </div>
+
+      }
+
+
+      <!-- ================================================= -->
+      <!-- STORE ASSISTANT LOGIN -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'store-assistant'
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            🧑‍💼 Store Assistant Login
+          </h4>
+
+          <p class="form-subtitle">
+            Login to manage your assigned store sections
+          </p>
+
+
+          <form
+            [formGroup]="assistantLoginForm"
+            (ngSubmit)="assistantLogin()">
+
+
+            <!-- EMAIL -->
+
+            <div class="input-group-custom">
+
+              <label>
+                📧 Email Address
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your registered email"
+                formControlName="email">
+
+
+              @if (
+                assistantLoginForm.get('email')?.touched &&
+                assistantLoginForm.get('email')?.invalid
+              ) {
+
+                <small class="error">
+                  Please enter a valid email.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Password
+              </label>
+
+              <div class="password-box">
+
+                <input
+                  [type]="hideAssistantPassword ? 'password' : 'text'"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  formControlName="password">
+
+
+                <button
+                  type="button"
+                  class="eye-btn"
+                  (click)="hideAssistantPassword = !hideAssistantPassword">
+
+                  @if (hideAssistantPassword) {
+                    👁️
+                  }
+
+                  @else {
+                    🙈
+                  }
+
+                </button>
+
+              </div>
+
+
+              @if (
+                assistantLoginForm.get('password')?.touched &&
+                assistantLoginForm.get('password')?.invalid
+              ) {
+
+                <small class="error">
+                  Password is required.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (assistantErrorMessage) {
+
+              <div class="error-box">
+                {{ assistantErrorMessage }}
+              </div>
+
+            }
+
+
+            <!-- LOGIN -->
+
+            <button
+              type="submit"
+              class="main-login-btn assistant-btn"
+              [disabled]="assistantLoading">
+
+              @if (assistantLoading) {
+
+                Logging in...
+
+              }
+
+              @else {
+
+                🧑‍💼 Login as Store Assistant
+
+              }
+
+            </button>
+
+          </form>
+
+
+          <!-- BACK -->
+
+          <button
+            type="button"
+            class="back-btn"
+            (click)="backToLoginOptions()">
+
+            ← Back
+
+          </button>
 
         </div>
 

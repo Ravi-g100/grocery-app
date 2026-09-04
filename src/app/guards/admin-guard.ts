@@ -96,7 +96,7 @@ export const adminGuard: CanActivateFn = (
   // ==================================================
 
   return router.createUrlTree([
-    '/admin-login'
+    '/login'
   ]);
 
 };

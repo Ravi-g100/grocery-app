@@ -16,6 +16,8 @@ import {
 
 import { UserService } from '../../services/user';
 
+import { StaffService } from '../../services/staff';
+
 
 @Component({
   selector: 'app-login',
@@ -32,6 +34,8 @@ import { UserService } from '../../services/user';
 
   styleUrls: ['./login.css']
 })
+
+
 export class Login {
 
   // ==========================================
@@ -40,7 +44,18 @@ export class Login {
 
   showLoginOptions = true;
 
-  selectedLogin: 'user' | 'admin' | null = null;
+  selectedLogin:
+    'user'
+    | 'admin'
+    | 'store-assistant'
+    | null = null;
+
+
+  // ==========================================
+  // OTHER LOGIN MENU
+  // ==========================================
+
+  showOtherLogin = false;
 
 
   // ==========================================
@@ -95,9 +110,26 @@ export class Login {
   adminForgotPasswordMessage = '';
 
 
+  // ==========================================
+  // STORE ASSISTANT LOGIN
+  // ==========================================
+
+  hideAssistantPassword = true;
+
+  assistantLoading = false;
+
+  assistantLoginForm: FormGroup;
+
+  assistantErrorMessage = '';
+
+
   constructor(
     private fb: FormBuilder,
+
     private userService: UserService,
+
+    private staffService: StaffService,
+
     private router: Router
   ) {
 
@@ -205,6 +237,28 @@ export class Login {
 
     });
 
+
+    // ========================================
+    // STORE ASSISTANT LOGIN FORM
+    // ========================================
+
+    this.assistantLoginForm = this.fb.group({
+
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+
+      password: [
+        '',
+        Validators.required
+      ]
+
+    });
+
   }
 
 
@@ -216,11 +270,55 @@ export class Login {
 
     this.showLoginOptions = false;
 
+    this.showOtherLogin = false;
+
     this.selectedLogin = 'user';
 
     this.showForgotPassword = false;
 
     this.errorMessage = '';
+
+  }
+
+
+  // ==========================================
+  // OPEN OTHER LOGIN
+  // ==========================================
+
+  openOtherLogin(): void {
+
+    this.showOtherLogin =
+      !this.showOtherLogin;
+
+  }
+
+
+  // ==========================================
+  // CLOSE OTHER LOGIN
+  // ==========================================
+
+  closeOtherLogin(): void {
+
+    this.showOtherLogin = false;
+
+  }
+
+
+  // ==========================================
+  // STORE ASSISTANT LOGIN
+  // ==========================================
+
+  storeAssistantLogin(): void {
+
+    this.showLoginOptions = false;
+
+    this.showOtherLogin = false;
+
+    this.selectedLogin = 'store-assistant';
+
+    this.assistantErrorMessage = '';
+
+    this.assistantLoginForm.reset();
 
   }
 
@@ -232,6 +330,8 @@ export class Login {
   selectAdminLogin(): void {
 
     this.showLoginOptions = false;
+
+    this.showOtherLogin = false;
 
     this.selectedLogin = 'admin';
 
@@ -250,6 +350,8 @@ export class Login {
 
     this.showLoginOptions = true;
 
+    this.showOtherLogin = false;
+
     this.selectedLogin = null;
 
     this.showForgotPassword = false;
@@ -259,6 +361,8 @@ export class Login {
     this.errorMessage = '';
 
     this.adminErrorMessage = '';
+
+    this.assistantErrorMessage = '';
 
   }
 
@@ -293,20 +397,12 @@ export class Login {
       this.loginForm.value.password;
 
 
-    // ========================================
-    // LOGIN THROUGH BACKEND
-    // ========================================
-
     this.userService
       .loginUser(
         email,
         password
       )
       .subscribe({
-
-        // ====================================
-        // SUCCESS
-        // ====================================
 
         next: (user) => {
 
@@ -339,8 +435,32 @@ export class Login {
             'currentUser'
           );
 
-          sessionStorage.removeItem(
+          localStorage.removeItem(
             'adminLoggedIn'
+          );
+
+          localStorage.removeItem(
+            'adminRole'
+          );
+
+          localStorage.removeItem(
+            'adminUser'
+          );
+
+          localStorage.removeItem(
+            'storeAssistantLoggedIn'
+          );
+
+          localStorage.removeItem(
+            'storeAssistantRole'
+          );
+
+          localStorage.removeItem(
+            'storeAssistantPermissions'
+          );
+
+          localStorage.removeItem(
+            'storeAssistantUser'
           );
 
 
@@ -369,10 +489,6 @@ export class Login {
 
         },
 
-
-        // ====================================
-        // ERROR
-        // ====================================
 
         error: (error) => {
 
@@ -503,7 +619,7 @@ export class Login {
 
 
     // ========================================
-    // UPDATE PASSWORD THROUGH BACKEND
+    // UPDATE PASSWORD
     // ========================================
 
     this.userService
@@ -512,10 +628,6 @@ export class Login {
         newPassword
       )
       .subscribe({
-
-        // ====================================
-        // SUCCESS
-        // ====================================
 
         next: () => {
 
@@ -527,11 +639,6 @@ export class Login {
           this.forgotPasswordForm.reset();
 
         },
-
-
-        // ====================================
-        // ERROR
-        // ====================================
 
         error: (error) => {
 
@@ -617,23 +724,52 @@ export class Login {
         password === correctPassword
       ) {
 
-        // Remove old user login
+        // ==================================
+        // REMOVE USER LOGIN
+        // ==================================
 
         localStorage.removeItem(
           'currentUser'
         );
-
 
         sessionStorage.removeItem(
           'currentUser'
         );
 
 
-        // Save admin login
+        // ==================================
+        // REMOVE STORE ASSISTANT LOGIN
+        // ==================================
 
-        sessionStorage.setItem(
+        localStorage.removeItem(
+          'storeAssistantLoggedIn'
+        );
+
+        localStorage.removeItem(
+          'storeAssistantRole'
+        );
+
+        localStorage.removeItem(
+          'storeAssistantPermissions'
+        );
+
+        localStorage.removeItem(
+          'storeAssistantUser'
+        );
+
+
+        // ==================================
+        // SAVE ADMIN LOGIN
+        // ==================================
+
+        localStorage.setItem(
           'adminLoggedIn',
           'true'
+        );
+
+        localStorage.setItem(
+          'adminRole',
+          'admin'
         );
 
 
@@ -652,10 +788,6 @@ export class Login {
         );
 
       }
-
-      // ====================================
-      // ADMIN LOGIN FAILED
-      // ====================================
 
       else {
 
@@ -786,6 +918,283 @@ export class Login {
 
 
     this.adminForgotPasswordForm.reset();
+
+  }
+
+
+  // ==========================================
+  // STORE ASSISTANT LOGIN
+  // ==========================================
+
+  assistantLogin(): void {
+
+    if (
+      this.assistantLoginForm.invalid
+    ) {
+
+      this.assistantLoginForm.markAllAsTouched();
+
+      return;
+
+    }
+
+
+    this.assistantLoading = true;
+
+    this.assistantErrorMessage = '';
+
+
+    const email =
+      this.assistantLoginForm.value.email
+        .trim()
+        .toLowerCase();
+
+
+    const password =
+      this.assistantLoginForm.value.password;
+
+
+    // ========================================
+    // LOGIN THROUGH STAFF SERVICE
+    // ========================================
+
+    this.staffService
+      .login(
+        email,
+        password
+      )
+      .subscribe({
+
+        next: (response) => {
+
+          this.assistantLoading = false;
+
+
+          // ==================================
+          // GET ASSISTANT DATA
+          // ==================================
+
+          const assistant =
+            response?.assistant;
+
+
+          if (!assistant) {
+
+            this.assistantErrorMessage =
+              'Invalid Store Assistant login response.';
+
+            return;
+
+          }
+
+
+          // ==================================
+          // CLEAR OLD LOGIN
+          // ==================================
+
+          localStorage.removeItem(
+            'currentUser'
+          );
+
+          sessionStorage.removeItem(
+            'currentUser'
+          );
+
+          localStorage.removeItem(
+            'adminLoggedIn'
+          );
+
+          localStorage.removeItem(
+            'adminRole'
+          );
+
+          localStorage.removeItem(
+            'adminUser'
+          );
+
+
+          // ==================================
+          // SAVE ASSISTANT LOGIN
+          // ==================================
+
+          localStorage.setItem(
+            'storeAssistantLoggedIn',
+            'true'
+          );
+
+          localStorage.setItem(
+            'storeAssistantRole',
+            'store-assistant'
+          );
+
+
+          // ==================================
+          // NORMALIZE PERMISSIONS
+          // ==================================
+
+          const permissions = {
+
+            dashboard:
+              assistant.permissions?.dashboard === true,
+
+            orders:
+              assistant.permissions?.orders === true,
+
+            products:
+              assistant.permissions?.products === true,
+
+            categories:
+              assistant.permissions?.categories === true,
+
+            users:
+              assistant.permissions?.users === true
+
+          };
+
+
+          localStorage.setItem(
+            'storeAssistantPermissions',
+            JSON.stringify(permissions)
+          );
+
+
+          // ==================================
+          // SAVE ASSISTANT USER
+          // ==================================
+
+          localStorage.setItem(
+            'storeAssistantUser',
+            JSON.stringify(assistant)
+          );
+
+
+          // ==================================
+          // SUCCESS
+          // ==================================
+
+          alert(
+            'Store Assistant Login Successful'
+          );
+
+
+          // ==================================
+          // FIRST ALLOWED PAGE
+          // ==================================
+
+          if (
+            permissions.dashboard
+          ) {
+
+            this.router.navigateByUrl(
+              '/admin-dashboard'
+            );
+
+            return;
+
+          }
+
+
+          if (
+            permissions.orders
+          ) {
+
+            this.router.navigateByUrl(
+              '/admin-orders'
+            );
+
+            return;
+
+          }
+
+
+          if (
+            permissions.products
+          ) {
+
+            this.router.navigateByUrl(
+              '/admin-products'
+            );
+
+            return;
+
+          }
+
+
+          if (
+            permissions.categories
+          ) {
+
+            this.router.navigateByUrl(
+              '/admin-categories'
+            );
+
+            return;
+
+          }
+
+
+          if (
+            permissions.users
+          ) {
+
+            this.router.navigateByUrl(
+              '/admin-users'
+            );
+
+            return;
+
+          }
+
+
+          // ==================================
+          // NO PERMISSION
+          // ==================================
+
+          this.assistantErrorMessage =
+            'Login successful, but Admin has not given you access to any section.';
+
+        },
+
+
+        error: (error) => {
+
+          this.assistantLoading = false;
+
+
+          console.error(
+            'Store Assistant login error:',
+            error
+          );
+
+
+          if (
+            error.status === 401
+          ) {
+
+            this.assistantErrorMessage =
+              'Invalid email or password, or your request is not approved yet.';
+
+          }
+
+          else if (
+            error.status === 400
+          ) {
+
+            this.assistantErrorMessage =
+              'Email and password are required.';
+
+          }
+
+          else {
+
+            this.assistantErrorMessage =
+              'Unable to login as Store Assistant. Please try again.';
+
+          }
+
+        }
+
+      });
 
   }
 

@@ -40,8 +40,6 @@ import { ProfileComponent } from './pages/profile/profile';
 
 import { AdminOrdersComponent } from './pages/admin-orders/admin-orders';
 
-import { AdminLoginComponent } from './pages/admin-login/admin-login';
-
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
 
 import { AdminProductsComponent } from './pages/admin-products/admin-products';
@@ -56,9 +54,6 @@ import { AdminStaffComponent } from './pages/admin-staff/admin-staff';
 // STORE ASSISTANT
 // ==========================================
 
-import {
-  StoreAssistantLoginComponent
-} from './pages/store-assistant-login/store-assistant-login';
 import { StoreAssistantRegisterComponent } from './pages/store-assistant-register/store-assistant-register';
 
 
@@ -115,28 +110,6 @@ export const routes: Routes = [
     path: 'home',
     component: Home
   },
-
-
-  // ==========================================
-  // ADMIN LOGIN
-  // ==========================================
-
-  {
-    path: 'admin-login',
-    component: AdminLoginComponent
-  },
-
-
-  // ==========================================
-  // STORE ASSISTANT LOGIN
-  // ==========================================
-
-  {
-    path: 'store-assistant-login',
-    component: StoreAssistantLoginComponent
-  },
-
-
   // ==========================================
   // USER ROUTES
   // ==========================================

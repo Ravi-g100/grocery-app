@@ -7,6 +7,7 @@
   <aside class="sidebar">
 
     <!-- LOGO -->
+
     <div class="sidebar-logo">
 
       <div class="logo-icon">
@@ -20,7 +21,13 @@
         </h4>
 
         <small>
-          Admin Panel
+          @if (isAdmin) {
+            Admin Panel
+          }
+
+          @if (isStoreAssistant) {
+            Store Assistant Panel
+          }
         </small>
 
       </div>
@@ -43,41 +50,52 @@
       <!-- DASHBOARD -->
       <!-- ================================================== -->
 
-      <a
-        routerLink="/admin-dashboard"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="menu-item">
+      @if (isAdmin || hasDashboardAccess) {
 
-        <span>
-          📊
-        </span>
+        <a
+          routerLink="/admin-dashboard"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="menu-item"
+        >
 
-        <span>
-          Dashboard
-        </span>
+          <span>
+            📊
+          </span>
 
-      </a>
+          <span>
+            Dashboard
+          </span>
+
+        </a>
+
+      }
 
 
       <!-- ================================================== -->
       <!-- STORE ASSISTANTS -->
+      <!-- ONLY ADMIN -->
       <!-- ================================================== -->
 
-      <a
-        routerLink="/admin-staff"
-        routerLinkActive="active"
-        class="menu-item">
+      @if (isAdmin) {
 
-        <span>
-          🧑‍💼
-        </span>
+        <a
+          routerLink="/admin-staff"
+          routerLinkActive="active"
+          class="menu-item"
+        >
 
-        <span>
-          Store Assistants
-        </span>
+          <span>
+            🧑‍💼
+          </span>
 
-      </a>
+          <span>
+            Store Assistants
+          </span>
+
+        </a>
+
+      }
 
 
       <!-- ================================================== -->
@@ -89,7 +107,8 @@
         <a
           routerLink="/admin-orders"
           routerLinkActive="active"
-          class="menu-item">
+          class="menu-item"
+        >
 
           <span>
             📦
@@ -122,7 +141,8 @@
         <a
           routerLink="/admin-products"
           routerLinkActive="active"
-          class="menu-item">
+          class="menu-item"
+        >
 
           <span>
             🛒
@@ -146,7 +166,8 @@
         <a
           routerLink="/admin-categories"
           routerLinkActive="active"
-          class="menu-item">
+          class="menu-item"
+        >
 
           <span>
             📂
@@ -170,7 +191,8 @@
         <a
           routerLink="/admin-users"
           routerLinkActive="active"
-          class="menu-item">
+          class="menu-item"
+        >
 
           <span>
             👥
@@ -196,7 +218,8 @@
 
       <a
         routerLink="/products"
-        class="menu-item">
+        class="menu-item"
+      >
 
         <span>
           🛍️
@@ -211,7 +234,8 @@
 
       <a
         routerLink="/home"
-        class="menu-item">
+        class="menu-item"
+      >
 
         <span>
           🏠
@@ -222,6 +246,7 @@
         </span>
 
       </a>
+
 
     </nav>
 
@@ -235,7 +260,8 @@
       <button
         type="button"
         class="logout-btn"
-        (click)="logout()">
+        (click)="logout()"
+      >
 
         🚪
 
@@ -265,18 +291,35 @@
 
       <div>
 
-        <h2>
-          👨‍💼 Admin Dashboard
-        </h2>
+        @if (isAdmin) {
 
-        <p>
-          Welcome back! Manage your grocery store.
-        </p>
+          <h2>
+            👨‍💼 Admin Dashboard
+          </h2>
+
+          <p>
+            Welcome back! Manage your grocery store.
+          </p>
+
+        }
+
+
+        @if (isStoreAssistant) {
+
+          <h2>
+            🧑‍💼 Store Assistant
+          </h2>
+
+          <p>
+            Welcome! Manage the sections assigned by Admin.
+          </p>
+
+        }
 
       </div>
 
 
-      <!-- ADMIN PROFILE -->
+      <!-- PROFILE -->
 
       <div class="admin-profile">
 
@@ -286,13 +329,30 @@
 
         <div>
 
-          <strong>
-            Administrator
-          </strong>
+          @if (isAdmin) {
 
-          <small>
-            Store Manager
-          </small>
+            <strong>
+              Administrator
+            </strong>
+
+            <small>
+              Store Manager
+            </small>
+
+          }
+
+
+          @if (isStoreAssistant) {
+
+            <strong>
+              Store Assistant
+            </strong>
+
+            <small>
+              Authorized Staff
+            </small>
+
+          }
 
         </div>
 
@@ -305,7 +365,10 @@
     <!-- ACCESS DENIED -->
     <!-- ================================================== -->
 
-    @if (!isAdmin && isStoreAssistant && !hasDashboardAccess) {
+    @if (
+      isStoreAssistant &&
+      !hasDashboardAccess
+    ) {
 
       <div class="access-denied-container">
 
@@ -320,12 +383,13 @@
           </h2>
 
           <p>
-            Admin has not given you permission to access
-            the Dashboard.
+            Admin has not given you permission
+            to access the Dashboard.
           </p>
 
           <small>
-            Please contact the Administrator to get access.
+            Please contact the Administrator
+            to get access.
           </small>
 
         </div>
@@ -339,7 +403,10 @@
     <!-- DASHBOARD CONTENT -->
     <!-- ================================================== -->
 
-    @if (isAdmin || hasDashboardAccess) {
+    @if (
+      isAdmin ||
+      hasDashboardAccess
+    ) {
 
 
       <!-- ================================================== -->
@@ -515,7 +582,10 @@
 
         <!-- ORDER MANAGEMENT -->
 
-        @if (isAdmin || hasOrdersAccess) {
+        @if (
+          isAdmin ||
+          hasOrdersAccess
+        ) {
 
           <div class="col-lg-6">
 
@@ -534,10 +604,9 @@
 
                 <a
                   routerLink="/admin-orders"
-                  class="btn btn-success">
-
+                  class="btn btn-success"
+                >
                   Manage Orders →
-
                 </a>
 
               </div>
@@ -563,9 +632,12 @@
       <div class="row g-4 mb-4">
 
 
-        <!-- ORDERS INFO -->
+        <!-- ORDERS -->
 
-        @if (isAdmin || hasOrdersAccess) {
+        @if (
+          isAdmin ||
+          hasOrdersAccess
+        ) {
 
           <div class="col-lg-4">
 
@@ -595,7 +667,7 @@
         }
 
 
-        <!-- DELIVERY INFO -->
+        <!-- DELIVERY -->
 
         <div class="col-lg-4">
 
@@ -623,7 +695,7 @@
         </div>
 
 
-        <!-- CANCELLED INFO -->
+        <!-- CANCELLED -->
 
         <div class="col-lg-4">
 
@@ -657,12 +729,16 @@
       <!-- QUICK ORDER BUTTON -->
       <!-- ================================================== -->
 
-      @if (isAdmin || hasOrdersAccess) {
+      @if (
+        isAdmin ||
+        hasOrdersAccess
+      ) {
 
         <div class="quick-card">
 
           <div
-            class="d-flex justify-content-between align-items-center">
+            class="d-flex justify-content-between align-items-center"
+          >
 
             <div>
 
@@ -680,7 +756,8 @@
 
             <a
               routerLink="/admin-orders"
-              class="quick-btn">
+              class="quick-btn"
+            >
 
               📦 View Orders →
 
@@ -694,7 +771,7 @@
 
     }
 
+
   </main>
 
 </div>
-

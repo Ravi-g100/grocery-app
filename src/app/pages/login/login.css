@@ -356,10 +356,16 @@ h2 {
 
 /* USER */
 
+.user-option {
+  margin-left: 90px;
+  margin-right: -120px;
+
+}
 .user-option:hover {
   border-color: #198754;
 
   background: #f1f8e9;
+  
 }
 
 
@@ -1020,4 +1026,81 @@ h2 {
     text-align: left;
   }
 
+}
+.other-login-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.other-login-link {
+  background: none;
+  border: none;
+  color: #198754;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.other-login-link:hover {
+  color: #146c43;
+}
+
+
+.other-login-menu {
+  margin-top: 15px;
+  padding: 18px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  background: #f8f9fa;
+
+  text-align: center;
+}
+
+
+.other-login-menu h5 {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+
+.other-login-option {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 12px;
+  margin-bottom: 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.other-login-option:hover {
+  background: #198754;
+  color: white;
+}
+
+
+.other-login-close {
+  border: none;
+  background: transparent;
+
+  color: #777;
+
+  cursor: pointer;
 }
