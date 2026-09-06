@@ -45,7 +45,7 @@ export class Login {
   showLoginOptions = true;
 
   selectedLogin:
-    'user'
+    | 'user'
     | 'admin'
     | 'store-assistant'
     | null = null;
@@ -123,7 +123,21 @@ export class Login {
   assistantErrorMessage = '';
 
 
+  // ==========================================
+  // STORE ASSISTANT FORGOT PASSWORD
+  // ==========================================
+
+  showAssistantForgotPassword = false;
+
+  assistantForgotPasswordForm: FormGroup;
+
+  assistantForgotPasswordError = '';
+
+  assistantForgotPasswordMessage = '';
+
+
   constructor(
+
     private fb: FormBuilder,
 
     private userService: UserService,
@@ -131,7 +145,9 @@ export class Login {
     private staffService: StaffService,
 
     private router: Router
+
   ) {
+
 
     // ========================================
     // USER LOGIN FORM
@@ -259,6 +275,36 @@ export class Login {
 
     });
 
+
+    // ========================================
+    // STORE ASSISTANT FORGOT PASSWORD FORM
+    // ========================================
+
+    this.assistantForgotPasswordForm = this.fb.group({
+
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+
+      newPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6)
+        ]
+      ],
+
+      confirmPassword: [
+        '',
+        Validators.required
+      ]
+
+    });
+
   }
 
 
@@ -316,6 +362,8 @@ export class Login {
 
     this.selectedLogin = 'store-assistant';
 
+    this.showAssistantForgotPassword = false;
+
     this.assistantErrorMessage = '';
 
     this.assistantLoginForm.reset();
@@ -357,6 +405,8 @@ export class Login {
     this.showForgotPassword = false;
 
     this.showAdminForgotPassword = false;
+
+    this.showAssistantForgotPassword = false;
 
     this.errorMessage = '';
 
@@ -409,10 +459,6 @@ export class Login {
           this.loading = false;
 
 
-          // ==================================
-          // CHECK BLOCKED USER
-          // ==================================
-
           if (user.blocked) {
 
             this.errorMessage =
@@ -423,9 +469,7 @@ export class Login {
           }
 
 
-          // ==================================
           // CLEAR OLD LOGIN
-          // ==================================
 
           localStorage.removeItem(
             'currentUser'
@@ -464,19 +508,13 @@ export class Login {
           );
 
 
-          // ==================================
           // SAVE USER LOGIN
-          // ==================================
 
           localStorage.setItem(
             'currentUser',
             user.email
           );
 
-
-          // ==================================
-          // SUCCESS
-          // ==================================
 
           alert(
             'Login Successful'
@@ -501,18 +539,14 @@ export class Login {
           );
 
 
-          if (
-            error.status === 401
-          ) {
+          if (error.status === 401) {
 
             this.errorMessage =
               'Invalid email or password.';
 
           }
 
-          else if (
-            error.status === 400
-          ) {
+          else if (error.status === 400) {
 
             this.errorMessage =
               'Email and password are required.';
@@ -571,9 +605,7 @@ export class Login {
 
   forgotPassword(): void {
 
-    if (
-      this.forgotPasswordForm.invalid
-    ) {
+    if (this.forgotPasswordForm.invalid) {
 
       this.forgotPasswordForm.markAllAsTouched();
 
@@ -601,10 +633,6 @@ export class Login {
       this.forgotPasswordForm.value.confirmPassword;
 
 
-    // ========================================
-    // PASSWORD MATCH
-    // ========================================
-
     if (
       newPassword !==
       confirmPassword
@@ -617,10 +645,6 @@ export class Login {
 
     }
 
-
-    // ========================================
-    // UPDATE PASSWORD
-    // ========================================
 
     this.userService
       .updatePassword(
@@ -640,6 +664,7 @@ export class Login {
 
         },
 
+
         error: (error) => {
 
           console.error(
@@ -648,9 +673,7 @@ export class Login {
           );
 
 
-          if (
-            error.status === 404
-          ) {
+          if (error.status === 404) {
 
             this.forgotPasswordError =
               'No account found with this email.';
@@ -660,6 +683,7 @@ export class Login {
           else {
 
             this.forgotPasswordError =
+              error.error?.message ||
               'Password reset failed. Please try again.';
 
           }
@@ -677,9 +701,7 @@ export class Login {
 
   adminLogin(): void {
 
-    if (
-      this.adminLoginForm.invalid
-    ) {
+    if (this.adminLoginForm.invalid) {
 
       this.adminLoginForm.markAllAsTouched();
 
@@ -715,18 +737,12 @@ export class Login {
 
     setTimeout(() => {
 
-      // ====================================
-      // ADMIN LOGIN SUCCESS
-      // ====================================
-
       if (
         username === 'admin' &&
         password === correctPassword
       ) {
 
-        // ==================================
         // REMOVE USER LOGIN
-        // ==================================
 
         localStorage.removeItem(
           'currentUser'
@@ -737,9 +753,7 @@ export class Login {
         );
 
 
-        // ==================================
         // REMOVE STORE ASSISTANT LOGIN
-        // ==================================
 
         localStorage.removeItem(
           'storeAssistantLoggedIn'
@@ -758,9 +772,7 @@ export class Login {
         );
 
 
-        // ==================================
         // SAVE ADMIN LOGIN
-        // ==================================
 
         localStorage.setItem(
           'adminLoggedIn',
@@ -841,9 +853,7 @@ export class Login {
 
   adminForgotPassword(): void {
 
-    if (
-      this.adminForgotPasswordForm.invalid
-    ) {
+    if (this.adminForgotPasswordForm.invalid) {
 
       this.adminForgotPasswordForm.markAllAsTouched();
 
@@ -870,13 +880,7 @@ export class Login {
       this.adminForgotPasswordForm.value.confirmPassword;
 
 
-    // ======================================
-    // CHECK ADMIN USERNAME
-    // ======================================
-
-    if (
-      username !== 'admin'
-    ) {
+    if (username !== 'admin') {
 
       this.adminForgotPasswordError =
         'Invalid admin username.';
@@ -885,10 +889,6 @@ export class Login {
 
     }
 
-
-    // ======================================
-    // CHECK PASSWORD
-    // ======================================
 
     if (
       newPassword !==
@@ -902,10 +902,6 @@ export class Login {
 
     }
 
-
-    // ======================================
-    // SAVE ADMIN PASSWORD
-    // ======================================
 
     localStorage.setItem(
       'adminPassword',
@@ -923,14 +919,136 @@ export class Login {
 
 
   // ==========================================
+  // OPEN STORE ASSISTANT FORGOT PASSWORD
+  // ==========================================
+
+  openAssistantForgotPassword(): void {
+
+    this.showAssistantForgotPassword = true;
+
+    this.assistantForgotPasswordError = '';
+
+    this.assistantForgotPasswordMessage = '';
+
+  }
+
+
+  // ==========================================
+  // CLOSE STORE ASSISTANT FORGOT PASSWORD
+  // ==========================================
+
+  closeAssistantForgotPassword(): void {
+
+    this.showAssistantForgotPassword = false;
+
+    this.assistantForgotPasswordError = '';
+
+    this.assistantForgotPasswordMessage = '';
+
+    this.assistantForgotPasswordForm.reset();
+
+  }
+
+
+  // ==========================================
+  // STORE ASSISTANT FORGOT PASSWORD
+  // ==========================================
+
+  assistantForgotPassword(): void {
+
+    if (
+      this.assistantForgotPasswordForm.invalid
+    ) {
+
+      this.assistantForgotPasswordForm.markAllAsTouched();
+
+      return;
+
+    }
+
+
+    this.assistantForgotPasswordError = '';
+
+    this.assistantForgotPasswordMessage = '';
+
+
+    const email =
+      this.assistantForgotPasswordForm.value.email
+        .trim()
+        .toLowerCase();
+
+
+    const newPassword =
+      this.assistantForgotPasswordForm.value.newPassword;
+
+
+    const confirmPassword =
+      this.assistantForgotPasswordForm.value.confirmPassword;
+
+
+    // PASSWORD MATCH CHECK
+
+    if (
+      newPassword !==
+      confirmPassword
+    ) {
+
+      this.assistantForgotPasswordError =
+        'New password and confirm password do not match.';
+
+      return;
+
+    }
+
+
+    // UPDATE PASSWORD
+
+    this.staffService
+      .updatePassword(
+        email,
+        newPassword
+      )
+      .subscribe({
+
+        next: (response) => {
+
+          this.assistantForgotPasswordMessage =
+            response.message ||
+            'Password reset successfully. You can login now.';
+
+          this.assistantForgotPasswordError = '';
+
+          this.assistantForgotPasswordForm.reset();
+
+        },
+
+
+        error: (error) => {
+
+          console.error(
+            'Store Assistant forgot password error:',
+            error
+          );
+
+
+          this.assistantForgotPasswordError =
+            error.error?.message ||
+            'Password reset failed. Please try again.';
+
+        }
+
+      });
+
+  }
+
+
+  // ==========================================
   // STORE ASSISTANT LOGIN
   // ==========================================
 
   assistantLogin(): void {
 
-    if (
-      this.assistantLoginForm.invalid
-    ) {
+    if (this.assistantLoginForm.invalid) {
 
       this.assistantLoginForm.markAllAsTouched();
 
@@ -954,10 +1072,6 @@ export class Login {
       this.assistantLoginForm.value.password;
 
 
-    // ========================================
-    // LOGIN THROUGH STAFF SERVICE
-    // ========================================
-
     this.staffService
       .login(
         email,
@@ -969,10 +1083,6 @@ export class Login {
 
           this.assistantLoading = false;
 
-
-          // ==================================
-          // GET ASSISTANT DATA
-          // ==================================
 
           const assistant =
             response?.assistant;
@@ -988,9 +1098,7 @@ export class Login {
           }
 
 
-          // ==================================
           // CLEAR OLD LOGIN
-          // ==================================
 
           localStorage.removeItem(
             'currentUser'
@@ -1013,9 +1121,7 @@ export class Login {
           );
 
 
-          // ==================================
           // SAVE ASSISTANT LOGIN
-          // ==================================
 
           localStorage.setItem(
             'storeAssistantLoggedIn',
@@ -1028,9 +1134,7 @@ export class Login {
           );
 
 
-          // ==================================
           // NORMALIZE PERMISSIONS
-          // ==================================
 
           const permissions = {
 
@@ -1058,9 +1162,7 @@ export class Login {
           );
 
 
-          // ==================================
           // SAVE ASSISTANT USER
-          // ==================================
 
           localStorage.setItem(
             'storeAssistantUser',
@@ -1068,22 +1170,14 @@ export class Login {
           );
 
 
-          // ==================================
-          // SUCCESS
-          // ==================================
-
           alert(
             'Store Assistant Login Successful'
           );
 
 
-          // ==================================
           // FIRST ALLOWED PAGE
-          // ==================================
 
-          if (
-            permissions.dashboard
-          ) {
+          if (permissions.dashboard) {
 
             this.router.navigateByUrl(
               '/admin-dashboard'
@@ -1094,9 +1188,7 @@ export class Login {
           }
 
 
-          if (
-            permissions.orders
-          ) {
+          if (permissions.orders) {
 
             this.router.navigateByUrl(
               '/admin-orders'
@@ -1107,9 +1199,7 @@ export class Login {
           }
 
 
-          if (
-            permissions.products
-          ) {
+          if (permissions.products) {
 
             this.router.navigateByUrl(
               '/admin-products'
@@ -1120,9 +1210,7 @@ export class Login {
           }
 
 
-          if (
-            permissions.categories
-          ) {
+          if (permissions.categories) {
 
             this.router.navigateByUrl(
               '/admin-categories'
@@ -1133,9 +1221,7 @@ export class Login {
           }
 
 
-          if (
-            permissions.users
-          ) {
+          if (permissions.users) {
 
             this.router.navigateByUrl(
               '/admin-users'
@@ -1145,10 +1231,6 @@ export class Login {
 
           }
 
-
-          // ==================================
-          // NO PERMISSION
-          // ==================================
 
           this.assistantErrorMessage =
             'Login successful, but Admin has not given you access to any section.';
@@ -1167,30 +1249,9 @@ export class Login {
           );
 
 
-          if (
-            error.status === 401
-          ) {
-
-            this.assistantErrorMessage =
-              'Invalid email or password, or your request is not approved yet.';
-
-          }
-
-          else if (
-            error.status === 400
-          ) {
-
-            this.assistantErrorMessage =
-              'Email and password are required.';
-
-          }
-
-          else {
-
-            this.assistantErrorMessage =
-              'Unable to login as Store Assistant. Please try again.';
-
-          }
+          this.assistantErrorMessage =
+            error.error?.message ||
+            'Unable to login as Store Assistant. Please try again.';
 
         }
 
@@ -1199,3 +1260,4 @@ export class Login {
   }
 
 }
+

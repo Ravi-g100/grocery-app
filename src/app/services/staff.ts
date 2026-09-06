@@ -177,4 +177,28 @@ export class StaffService {
 
   }
 
+
+  // ==================================================
+  // UPDATE STORE ASSISTANT PASSWORD
+  // ==================================================
+
+  updatePassword(
+    email: string,
+    newPassword: string
+  ): Observable<any> {
+
+    return this.http.put(
+
+      `${this.apiUrl}/password`,
+
+      {
+        email,
+        newPassword
+      }
+
+    );
+
+  }
+
 }
+

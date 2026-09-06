@@ -130,7 +130,7 @@
             </h5>
 
 
-            <!-- ADMIN -->
+            <!-- ADMIN LOGIN -->
 
             <button
               type="button"
@@ -146,7 +146,7 @@
             </button>
 
 
-            <!-- STORE ASSISTANT -->
+            <!-- STORE ASSISTANT LOGIN -->
 
             <button
               type="button"
@@ -258,9 +258,7 @@
 
                   @if (hidePassword) {
                     👁️
-                  }
-
-                  @else {
+                  } @else {
                     🙈
                   }
 
@@ -283,7 +281,7 @@
             </div>
 
 
-            <!-- OPTIONS -->
+            <!-- REMEMBER AND FORGOT -->
 
             <div class="login-options-row">
 
@@ -315,7 +313,9 @@
             @if (errorMessage) {
 
               <div class="error-box">
+
                 {{ errorMessage }}
+
               </div>
 
             }
@@ -332,9 +332,7 @@
 
                 Logging in...
 
-              }
-
-              @else {
+              } @else {
 
                 👤 Login as User
 
@@ -455,7 +453,9 @@
             @if (forgotPasswordError) {
 
               <div class="error-box">
+
                 {{ forgotPasswordError }}
+
               </div>
 
             }
@@ -466,7 +466,9 @@
             @if (forgotPasswordMessage) {
 
               <div class="success-box">
+
                 {{ forgotPasswordMessage }}
+
               </div>
 
             }
@@ -579,9 +581,7 @@
 
                   @if (hideAdminPassword) {
                     👁️
-                  }
-
-                  @else {
+                  } @else {
                     🙈
                   }
 
@@ -625,7 +625,9 @@
             @if (adminErrorMessage) {
 
               <div class="error-box">
+
                 {{ adminErrorMessage }}
+
               </div>
 
             }
@@ -642,9 +644,7 @@
 
                 Logging in...
 
-              }
-
-              @else {
+              } @else {
 
                 👨‍💼 Login as Admin
 
@@ -655,7 +655,7 @@
           </form>
 
 
-          <!-- DEMO CREDENTIALS -->
+          <!-- DEMO -->
 
           <div class="demo-box">
 
@@ -751,7 +751,7 @@
             </div>
 
 
-            <!-- CONFIRM -->
+            <!-- CONFIRM PASSWORD -->
 
             <div class="input-group-custom">
 
@@ -773,7 +773,9 @@
             @if (adminForgotPasswordError) {
 
               <div class="error-box">
+
                 {{ adminForgotPasswordError }}
+
               </div>
 
             }
@@ -784,7 +786,9 @@
             @if (adminForgotPasswordMessage) {
 
               <div class="success-box">
+
                 {{ adminForgotPasswordMessage }}
+
               </div>
 
             }
@@ -824,7 +828,8 @@
       <!-- ================================================= -->
 
       @if (
-        selectedLogin === 'store-assistant'
+        selectedLogin === 'store-assistant' &&
+        !showAssistantForgotPassword
       ) {
 
         <div class="login-content">
@@ -896,9 +901,7 @@
 
                   @if (hideAssistantPassword) {
                     👁️
-                  }
-
-                  @else {
+                  } @else {
                     🙈
                   }
 
@@ -921,12 +924,30 @@
             </div>
 
 
+            <!-- FORGOT PASSWORD -->
+
+            <div class="assistant-forgot">
+
+              <button
+                type="button"
+                class="forgot-btn"
+                (click)="openAssistantForgotPassword()">
+
+                Forgot Password?
+
+              </button>
+
+            </div>
+
+
             <!-- ERROR -->
 
             @if (assistantErrorMessage) {
 
               <div class="error-box">
+
                 {{ assistantErrorMessage }}
+
               </div>
 
             }
@@ -943,9 +964,7 @@
 
                 Logging in...
 
-              }
-
-              @else {
+              } @else {
 
                 🧑‍💼 Login as Store Assistant
 
@@ -954,6 +973,21 @@
             </button>
 
           </form>
+
+
+          <!-- CREATE ACCOUNT -->
+
+          <div class="register-text">
+
+            Don't have a Store Assistant account?
+
+            <a routerLink="/store-assistant-register">
+
+              Create Account
+
+            </a>
+
+          </div>
 
 
           <!-- BACK -->
@@ -971,8 +1005,164 @@
 
       }
 
+
+      <!-- ================================================= -->
+      <!-- STORE ASSISTANT FORGOT PASSWORD -->
+      <!-- ================================================= -->
+
+      @if (
+        selectedLogin === 'store-assistant' &&
+        showAssistantForgotPassword
+      ) {
+
+        <div class="login-content">
+
+          <h4>
+            🔐 Reset Store Assistant Password
+          </h4>
+
+          <p class="form-subtitle">
+            Enter your registered email and create a new password
+          </p>
+
+
+          <form
+            [formGroup]="assistantForgotPasswordForm"
+            (ngSubmit)="assistantForgotPassword()">
+
+
+            <!-- EMAIL -->
+
+            <div class="input-group-custom">
+
+              <label>
+                📧 Registered Email
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter registered email"
+                formControlName="email">
+
+
+              @if (
+                assistantForgotPasswordForm.get('email')?.touched &&
+                assistantForgotPasswordForm.get('email')?.invalid
+              ) {
+
+                <small class="error">
+                  Please enter a valid email.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- NEW PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 New Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Enter new password"
+                formControlName="newPassword">
+
+
+              @if (
+                assistantForgotPasswordForm.get('newPassword')?.touched &&
+                assistantForgotPasswordForm.get('newPassword')?.invalid
+              ) {
+
+                <small class="error">
+                  Password must be at least 6 characters.
+                </small>
+
+              }
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="input-group-custom">
+
+              <label>
+                🔒 Confirm Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm new password"
+                formControlName="confirmPassword">
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            @if (assistantForgotPasswordError) {
+
+              <div class="error-box">
+
+                {{ assistantForgotPasswordError }}
+
+              </div>
+
+            }
+
+
+            <!-- SUCCESS -->
+
+            @if (assistantForgotPasswordMessage) {
+
+              <div class="success-box">
+
+                {{ assistantForgotPasswordMessage }}
+
+              </div>
+
+            }
+
+
+            <!-- RESET -->
+
+            <button
+              type="submit"
+              class="main-login-btn assistant-btn">
+
+              🔐 Reset Password
+
+            </button>
+
+
+            <!-- BACK -->
+
+            <button
+              type="button"
+              class="back-btn"
+              (click)="closeAssistantForgotPassword()">
+
+              ← Back To Login
+
+            </button>
+
+          </form>
+
+        </div>
+
+      }
+
     </div>
 
   </div>
 
 </div>
+
