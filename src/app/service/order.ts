@@ -17,7 +17,7 @@ import { Order } from '../order';
 export class OrderService {
 
   private apiUrl =
-    'http://localhost:3000/api/orders';
+    'https://my-project-backend-3-m81y.onrender.com/api/orders';
 
 
   constructor(

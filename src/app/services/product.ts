@@ -17,7 +17,7 @@ import { Product } from '../models/product';
 export class ProductService {
 
   private apiUrl =
-    'http://localhost:3000/api/products';
+     'https://my-project-backend-3-m81y.onrender.com/api/products';
 
 
   constructor(

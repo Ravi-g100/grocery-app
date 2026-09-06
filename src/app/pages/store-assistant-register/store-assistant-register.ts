@@ -47,7 +47,7 @@ export class StoreAssistantRegisterComponent {
 
 
   // Backend URL
-  private apiUrl = 'http://localhost:3000/api/staff';
+  private apiUrl =  'https://my-project-backend-3-m81y.onrender.com/api/staff';
 
 
   constructor(
