@@ -33,7 +33,7 @@ export interface User {
 export class UserService {
 
   private apiUrl =
- 'https://my-project-backend-3-m81y.onrender.com/api/user';
+ 'https://my-project-backend-3-m81y.onrender.com/api/users';
 
 
   constructor(
